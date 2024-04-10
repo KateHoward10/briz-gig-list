@@ -12,6 +12,13 @@
   </head>
 
   <body>
+    <% if current_user.present? %>
+      <nav class="m-6 flex justify-between">
+        <%= link_to "Gigs", gigs_index_path %>
+        <%= link_to "Profile", profile_index_path %>
+        <%= link_to "Log out", logout_path %>
+      </nav>
+    <% end %>
     <main class="container mx-auto mt-20 px-5">
       <%= yield %>
     </main>
