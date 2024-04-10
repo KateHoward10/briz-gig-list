@@ -10,11 +10,19 @@ class GigsController < ApplicationController
       ENV['GOOGLE_CALENDAR_ID'],
       time_min: Time.now.to_datetime.rfc3339
     ).items
+
+  rescue => e
+    flash[:error] = 'You are not authorised to view this calendar'
+    redirect_to root_url
   end
 
   def show
     @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
     @posts = Post.where(gig_id: params[:id])
+
+  rescue => e
+    flash[:error] = 'You are not authorised to view this event'
+    redirect_to root_url
   end
 
   def new
@@ -31,6 +39,10 @@ class GigsController < ApplicationController
     @service.insert_event(ENV['GOOGLE_CALENDAR_ID'], gig)
     flash[:notice] = 'Gig was successfully added.'
     redirect_to gigs_path
+
+    rescue => e
+      flash[:error] = 'You are not authorised to create gigs'
+      redirect_to root_url
   end
 
   private
