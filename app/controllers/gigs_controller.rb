@@ -8,8 +8,11 @@ class GigsController < ApplicationController
   def index
     @gigs = @service.list_events(
       ENV['GOOGLE_CALENDAR_ID'],
-      time_min: Time.now.to_datetime.rfc3339
+      single_events: true,
+      time_min: Time.now.to_datetime.rfc3339,
+      order_by: "startTime"
     ).items
+    puts @gigs
 
     rescue => e
       flash[:error] = 'You are not authorised to view this calendar'
@@ -18,6 +21,18 @@ class GigsController < ApplicationController
   def show
     @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
     @posts = Post.where(gig_id: params[:id])
+
+    start_date = @gig.start.date || @gig.start.date_time
+    end_date = @gig.end.date || @gig.end.date_time
+    @clashes = []
+    @clash_list = @service.list_events(
+      ENV['GOOGLE_CALENDAR_ID'],
+      time_min: start_date.to_datetime.rfc3339,
+      time_max: end_date.to_datetime.rfc3339
+    )
+    @clash_list.items.each do |clash|
+      @clashes << clash unless clash.id == @gig.id
+    end
   end
 
   def new
