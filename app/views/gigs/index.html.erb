@@ -14,9 +14,5 @@
         <p class="text-sm"><%= gig.location.split(", ")[0] unless gig.location.nil? %></p>
       </li>
     <% end %>
-  </ul>  
-<% else %>
-  <%= form_tag("/auth/google_oauth2", method: :post, data: { turbo: "false" }) do %>
-    <button type="submit">Log in with Google</button>
-  <% end %>
+  </ul>
 <% end %>

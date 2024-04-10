@@ -11,18 +11,13 @@ class GigsController < ApplicationController
       time_min: Time.now.to_datetime.rfc3339
     ).items
 
-  rescue => e
-    flash[:error] = 'You are not authorised to view this calendar'
-    redirect_to root_url
+    rescue => e
+      flash[:error] = 'You are not authorised to view this calendar'
   end
 
   def show
     @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
     @posts = Post.where(gig_id: params[:id])
-
-  rescue => e
-    flash[:error] = 'You are not authorised to view this event'
-    redirect_to root_url
   end
 
   def new

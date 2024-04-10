@@ -13,14 +13,14 @@
 
   <body>
     <% if current_user.present? %>
-      <nav class="m-6 flex justify-between">
-        <%= link_to "Gigs", gigs_path %>
-        <%= link_to "Add gig", new_gig_path %>
-        <%= link_to "Profile", profile_index_path %>
-        <%= link_to "Log out", logout_path %>
+      <nav class="px-8 py-4 flex justify-between bg-blue-400">
+        <%= link_to "Gigs", gigs_path, class: "rounded px-2 hover:bg-blue-300" %>
+        <%= link_to "Add gig", new_gig_path, class: "rounded px-2 hover:bg-blue-300" %>
+        <%= link_to "Profile", profile_index_path, class: "rounded px-2 hover:bg-blue-300" %>
+        <%= link_to "Log out", logout_path, class: "rounded px-2 hover:bg-blue-300" %>
       </nav>
     <% end %>
-    <main class="container mx-auto mt-20 px-5">
+    <main class="container mx-auto mt-16 px-5">
       <%= yield %>
     </main>
   </body>
