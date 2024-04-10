@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'logout', to: 'sessions#logout'
 
-  get 'gigs/index'
+  resources :gigs
+
   get 'profile/index'
   root 'home#index'
 end

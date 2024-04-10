@@ -1,0 +1,25 @@
+<%= form_tag "/gigs" do %>
+  <div class="field">
+    <%= label_tag :description %>
+    <%= text_field_tag :description %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :start_date %>
+    <%= date_field_tag :start_date %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :end_date %>
+    <%= date_field_tag :end_date %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :location %>
+    <%= text_field_tag :location %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Save gig" %>
+  </div>
+<% end %>

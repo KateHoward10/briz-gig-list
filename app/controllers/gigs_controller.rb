@@ -17,6 +17,29 @@ class GigsController < ApplicationController
       token.save
     end
 
-    @gigs = service.list_events(ENV['GOOGLE_CALENDAR_ID'], time_min: Time.now.to_datetime.rfc3339).items
+    @gigs = service.list_events(
+      ENV['GOOGLE_CALENDAR_ID'],
+      time_min: Time.now.to_datetime.rfc3339
+    ).items
+  end
+
+  def new
+  end
+
+  def create
+    token = current_user.google_token
+    service = Google::Apis::CalendarV3::CalendarService.new
+    service.authorization = token.google_secret.to_authorization
+
+    gig = Google::Apis::CalendarV3::Event.new(
+      summary: params[:description],
+      start: Google::Apis::CalendarV3::EventDateTime.new(date: params[:start_date]),
+      end: Google::Apis::CalendarV3::EventDateTime.new(date: params[:end_date]),
+      location: params[:location]
+    )
+
+    service.insert_event(ENV['GOOGLE_CALENDAR_ID'], gig)
+    flash[:notice] = 'Gig was successfully added.'
+    redirect_to gigs_path
   end
 end

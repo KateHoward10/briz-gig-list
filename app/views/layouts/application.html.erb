@@ -14,7 +14,8 @@
   <body>
     <% if current_user.present? %>
       <nav class="m-6 flex justify-between">
-        <%= link_to "Gigs", gigs_index_path %>
+        <%= link_to "Gigs", gigs_path %>
+        <%= link_to "Add gig", new_gig_path %>
         <%= link_to "Profile", profile_index_path %>
         <%= link_to "Log out", logout_path %>
       </nav>
