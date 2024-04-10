@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#logout'
 
   resources :gigs
+  resources :posts
 
   get 'profile/index'
   root 'home#index'
