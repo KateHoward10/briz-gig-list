@@ -1,9 +1,12 @@
-<% if current_user.present? %>
-  <h1 class="text-xl font-bold mb-6">Upcoming gigs</h1>
-  <ul>
-    <% @gigs.each do |gig| %>
-      <li class="mb-4">
-        <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold" %>
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-xl font-bold">Upcoming gigs</h1>
+  <%= link_to "Past gigs", gigs_past_path, class: "hover:text-blue-600" %>
+</div>        
+<ul>
+  <% @gigs.each do |gig| %>
+    <li class="mb-4">
+      <%= link_to gig_path(gig.id), class: "hover:text-blue-600" do %>
+        <p class="font-semibold"><%= gig.summary %>
         <p class="text-sm italic">
           <% if gig.start.date.present? %>
             <%= gig.start.date.strftime("%a %d %b") %>
@@ -12,7 +15,7 @@
           <% end %>
         </p>
         <p class="text-sm"><%= gig.location.split(", ")[0] unless gig.location.nil? %></p>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

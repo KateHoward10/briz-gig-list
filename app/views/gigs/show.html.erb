@@ -24,12 +24,15 @@
 <% end %>
 
 <% if @posts.any? %>
-  <ul class="mb-6 p-2 border">
+  <ul class="my-6 p-2 border">
     <% @posts.each do |post| %>
       <li class="my-3 flex flex-col <%= post.user_id == current_user.id ? 'items-end' : 'items-start'  %>">
         <div class="p-2 rounded <%= post.user_id == current_user.id ? 'bg-blue-200' : 'bg-gray-200' %>">
           <% if post.user_id != current_user.id %>
-            <p class="text-xs"><%= post.user.name %></p>
+            <div class="text-xs flex items-center mb-1">
+              <%= image_tag current_user.image, class: "rounded-full h-6 w-6 mr-1" %>
+              <%= post.user.name %>
+            </div>
           <% end %>
           <p><%= post.text %></p>
         </div>
@@ -39,7 +42,7 @@
   </ul>
 <% end %>
 
-<div class="my-6">
+<div class="my-4">
   <%= form_for(:post, url: posts_path, remote: true, class: "flex flex-col items-end") do |form| %>
     <%= form.hidden_field :gig_id, value: @gig.id %>
     <%= form.text_area :text, class: "w-full", required: true %>

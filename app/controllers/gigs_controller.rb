@@ -12,10 +12,18 @@ class GigsController < ApplicationController
       time_min: Time.now.to_datetime.rfc3339,
       order_by: "startTime"
     ).items
-    puts @gigs
 
     rescue => e
       flash[:error] = 'You are not authorised to view this calendar'
+  end
+
+  def past
+    @gigs = @service.list_events(
+      ENV['GOOGLE_CALENDAR_ID'],
+      single_events: true,
+      time_max: Time.now.to_datetime.rfc3339,
+      order_by: "startTime"
+    ).items.reverse
   end
 
   def show
