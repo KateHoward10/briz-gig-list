@@ -1,49 +1,31 @@
-<h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
-<p class="italic">
-  <% if @gig.start.date.present? %>
-    <%= @gig.start.date.strftime("%a %d %b") %>
-  <% elsif @gig.start.date_time.present? %>
-    <%= @gig.start.date_time.strftime("%a %d %b at %H:%M") %>
-  <% end %>
-</p>
-<p><%= @gig.location %></p>
-
-<% if @clashes.any? %>
-  <h2 class="mt-6 text-red-800">Clashes</h2>
-  <ul class="mb-8 p-2 border border-red-200 rounded">
-    <% @clashes.each do |clash| %>
-      <% if clash.id != @gig.id %>
-        <li class="my-1">
-          <%= link_to gig_path(clash.id) do %>
-            <%= clash.summary %><%= " at " + clash.location.split(", ")[0] unless clash.location.nil? %>
-          <% end %>
-        </li>
+<div class="flex justify-between items-start">
+  <div>
+    <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
+    <p class="italic">
+      <% if @gig.start.date.present? %>
+        <%= @gig.start.date.strftime("%a %d %b") %>
+      <% elsif @gig.start.date_time.present? %>
+        <%= @gig.start.date_time.strftime("%a %d %b at %H:%M") %>
       <% end %>
-    <% end %>
-  </ul>
-<% end %>
+    </p>
+    <p class="mb-2"><%= @gig.location %></p>
+    <%= render 'user_list', users: @going, status: "going" %>
+    <%= render 'user_list', users: @interested, status: "interested" %>
+  </div>
 
-<% if @posts.any? %>
-  <ul class="my-6 p-2 border">
-    <% @posts.each do |post| %>
-      <li class="my-3 flex flex-col <%= post.user_id == current_user.id ? 'items-end' : 'items-start'  %>">
-        <div class="p-2 rounded <%= post.user_id == current_user.id ? 'bg-blue-200' : 'bg-gray-200' %>">
-          <% if post.user_id != current_user.id %>
-            <div class="text-xs flex items-center mb-1">
-              <%= image_tag current_user.image, class: "rounded-full h-6 w-6 mr-1" %>
-              <%= post.user.name %>
-            </div>
-          <% end %>
-          <p><%= post.text %></p>
-        </div>
-        <p class="text-xs italic"><%= post.created_at.strftime("%a %d %b %H:%M") %></p>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+  <%= form_with(model: @response, class: "flex items-center") do |form| %>
+    <%= form.hidden_field :gig_id, value: @gig.id %>
+    <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
+    <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
+  <% end %>
+</div>
+
+<%= render 'clash_list', clashes: @clashes, gig: @gig %>
+
+<%= render 'post_list', posts: @posts %>
 
 <div class="my-4">
-  <%= form_for(:post, url: posts_path, remote: true, class: "flex flex-col items-end") do |form| %>
+  <%= form_with(model: @post, class: "flex flex-col items-end") do |form| %>
     <%= form.hidden_field :gig_id, value: @gig.id %>
     <%= form.text_area :text, class: "w-full", required: true %>
 

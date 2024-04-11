@@ -1,0 +1,18 @@
+<% if posts.any? %>
+  <ul class="my-6 p-2 border">
+    <% posts.each do |post| %>
+      <li class="my-3 flex flex-col <%= post.user_id == current_user.id ? 'items-end' : 'items-start'  %>">
+        <div class="p-2 rounded <%= post.user_id == current_user.id ? 'bg-blue-200' : 'bg-gray-200' %>">
+          <% if post.user_id != current_user.id %>
+            <div class="text-xs flex items-center mb-1">
+              <%= image_tag post.user.image, class: "rounded-full h-6 w-6 mr-1" %>
+              <%= post.user.name %>
+            </div>
+          <% end %>
+          <p><%= post.text %></p>
+        </div>
+        <p class="text-xs italic"><%= post.created_at.strftime("%a %d %b %H:%M") %></p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

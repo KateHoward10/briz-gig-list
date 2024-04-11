@@ -29,6 +29,12 @@ class GigsController < ApplicationController
   def show
     @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
     @posts = Post.where(gig_id: params[:id])
+    @post = Post.new
+
+    responses = Response.where(gig_id: params[:id])
+    @going = responses.where(status: "Going").collect{ |x| x.user }
+    @interested = responses.where(status: "Interested").collect{ |x| x.user }
+    @response = responses.where(user_id: current_user.id).last || Response.new
 
     start_date = @gig.start.date || @gig.start.date_time
     end_date = @gig.end.date || @gig.end.date_time
