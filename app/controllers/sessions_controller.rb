@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
     token.refresh_token = refresh_token if refresh_token.present?
     token.save
 
-    redirect_to gigs_path
+    redirect_to feed_path
   end
 
   def logout

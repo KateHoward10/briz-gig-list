@@ -1,12 +1,15 @@
 <div class="flex justify-between items-center mb-6">
-  <h1 class="text-xl font-bold">Upcoming gigs</h1>
-  <%= link_to "Past gigs", gigs_past_path, class: "hover:text-blue-600" %>
+  <div>
+    <h1 class="text-xl font-bold">Upcoming gigs</h1>
+    <%= link_to "Past gigs", gigs_past_path, class: "text-sm font-semibold text-blue-700 hover:underline" %>
+  </div>
+  <%= link_to "Add gig", new_gig_path, class: "font-semibold text-blue-700 hover:underline" %>
 </div>
 <% if @gigs.present? %>
   <ul>
     <% @gigs.each do |gig| %>
       <li class="mb-4">
-        <%= link_to gig_path(gig.id), class: "hover:text-blue-600" do %>
+        <%= link_to gig_path(gig.id), class: "hover:text-blue-700" do %>
           <p class="font-semibold"><%= gig.summary %>
           <p class="text-sm italic">
             <% if gig.start.date.present? %>

@@ -3,7 +3,7 @@
   <ul class="mb-8 p-2 border border-red-200 rounded">
     <% clashes.each do |clash| %>
       <li class="my-1">
-        <%= link_to gig_path(clash.id) do %>
+        <%= link_to gig_path(clash.id), class: "hover:text-blue-700" do %>
           <%= clash.summary %><%= " at " + clash.location.split(", ")[0] unless clash.location.nil? %>
         <% end %>
       </li>
