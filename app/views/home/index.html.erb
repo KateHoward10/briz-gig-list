@@ -1,4 +1,19 @@
-<% if !current_user.present? %>
+<% if current_user.present? %>
+  <% if @responses.any? %>
+    <% @responses.each do |response| %>
+      <p class="flex justify-between items-center mb-1">
+        <span class="flex">
+          <%= image_tag response[:user][:image], class: "rounded-full h-6 w-6 mr-1" %>
+          <%= response[:user][:name] %> is 
+          <%= response[:status].downcase %>
+          <%= response[:status] == "Interested" ? " in " : " to " %>
+          <%= link_to response[:gig].summary, gig_path(response[:gig].id), class: "ml-1 font-semibold hover:text-blue-600" %>
+        </span>
+        <span class="text-xs italic"><%= response[:datetime].strftime("%a %d %b %H:%M") %></span>
+      </p>
+    <% end %>
+  <% end %>
+<% else %>
   <%= form_tag("/auth/google_oauth2", method: :post, data: { turbo: "false" }) do %>
     <button type="submit">Log in with Google</button>
   <% end %>
