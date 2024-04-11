@@ -1,16 +1,25 @@
 <% if current_user.present? %>
-  <% if @responses.any? %>
-    <% @responses.each do |response| %>
-      <p class="flex justify-between items-center mb-1">
-        <span class="flex">
-          <%= image_tag response[:user][:image], class: "rounded-full h-6 w-6 mr-1" %>
-          <%= response[:user][:name] %> is 
-          <%= response[:status].downcase %>
-          <%= response[:status] == "Interested" ? " in " : " to " %>
-          <%= link_to response[:gig].summary, gig_path(response[:gig].id), class: "ml-1 font-semibold hover:text-blue-600" %>
-        </span>
-        <span class="text-xs italic"><%= response[:datetime].strftime("%a %d %b %H:%M") %></span>
-      </p>
+  <% if @actions.any? %>
+    <% @actions.each do |action| %>
+      <% if action.gig_id %>
+        <p class="flex justify-between items-center mb-2">
+          <span class="flex">
+            <%= image_tag action.user.image, class: "rounded-full h-6 w-6 mr-1" %>
+            <%= action.user.name %>
+            <% if action.kind == "post" %>
+              <span class="ml-1">posted about</span>
+            <% elsif action.kind == "response" %>
+              <span class="mx-1">is</span>
+              <%= action.status.downcase %>
+              <%= action.status == "Interested" ? " in " : " to " %>
+            <% elsif action.kind == "gig" %>
+              <span class="ml-1">added</span>
+            <% end %>
+            <%= link_to action.gig_name, gig_path(action.gig_id), class: "ml-1 font-semibold hover:text-blue-600" %>
+          </span>
+          <span class="text-xs italic"><%= action.updated_at.strftime("%a %d %b %H:%M") %></span>
+        </p>
+      <% end %>
     <% end %>
   <% end %>
 <% else %>

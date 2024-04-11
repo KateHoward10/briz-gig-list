@@ -15,6 +15,7 @@
 
   <%= form_with(model: @response, class: "flex items-center") do |form| %>
     <%= form.hidden_field :gig_id, value: @gig.id %>
+    <%= form.hidden_field :gig_name, value: @gig.summary %>
     <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
     <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
   <% end %>
@@ -27,6 +28,7 @@
 <div class="my-4">
   <%= form_with(model: @post, class: "flex flex-col items-end") do |form| %>
     <%= form.hidden_field :gig_id, value: @gig.id %>
+    <%= form.hidden_field :gig_name, value: @gig.summary %>
     <%= form.text_area :text, class: "w-full", required: true %>
 
     <%= submit_tag "Add post", class: "border border-2 cursor-pointer rounded px-2 mt-2 ml-auto font-semibold hover:bg-gray-200" %>
