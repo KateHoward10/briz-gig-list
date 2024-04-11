@@ -4,11 +4,11 @@
       <% if users.length > 1 && index == users.length - 1 %>
         <span class="mx-2">&</span>
       <% end %>
-      <%= image_tag user.image, class: "rounded-full h-6 w-6 mr-1" %> <%= user.name %>
+      <%= image_tag user.image, class: "rounded-full h-6 w-6 mr-1" %> <%= user.id == current_user.id ? "You" : user.name %>
       <% if index < users.length - 2 %>
         <span class="mr-2">,</span>
       <% end %>
     <% end %>
-    <%= users.length > 1 ? "are" : "is" %> <%= status %>
+    <%= users.length > 1 || users.first.id == current_user.id ? "are" : "is" %> <%= status %>
   </p>
 <% end %>

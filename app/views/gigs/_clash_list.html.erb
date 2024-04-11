@@ -2,13 +2,11 @@
   <h2 class="mt-6 text-red-800">Clashes</h2>
   <ul class="mb-8 p-2 border border-red-200 rounded">
     <% clashes.each do |clash| %>
-      <% if clash.id != gig.id %>
-        <li class="my-1">
-          <%= link_to gig_path(clash.id) do %>
-            <%= clash.summary %><%= " at " + clash.location.split(", ")[0] unless clash.location.nil? %>
-          <% end %>
-        </li>
-      <% end %>
+      <li class="my-1">
+        <%= link_to gig_path(clash.id) do %>
+          <%= clash.summary %><%= " at " + clash.location.split(", ")[0] unless clash.location.nil? %>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 <% end %>
