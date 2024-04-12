@@ -21,7 +21,7 @@ class ResponsesController < ApplicationController
 
   def update
     @response = Response.find_by!(id: params[:id])
-    @action = Action.find_by(gig_id: @response.gig_id, user_id: @response.user_id)
+    @action = Action.find_by(gig_id: @response.gig_id, user_id: @response.user_id, kind: "response")
     if response_params[:status] == "Not going"
       @response.destroy
       @action.destroy
