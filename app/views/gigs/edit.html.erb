@@ -1,0 +1,5 @@
+<h1 class="text-xl font-bold mb-6">Edit <%= @gig.summary %></h1>
+
+<%= form_with(url: gig_path(@gig.id), method: :patch) do |form| %>
+  <%= render 'form_fields', form: form %>
+<% end %>

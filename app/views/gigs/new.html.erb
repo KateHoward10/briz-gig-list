@@ -1,29 +1,5 @@
 <h1 class="text-xl font-bold mb-6">Add a new gig</h1>
 
-<%= form_tag "/gigs" do %>
-  <div class="mb-3">
-    <%= label_tag :description %>
-    <%= text_field_tag :description, "", required: true, class: "w-full" %>
-  </div>
-
-  <div class="mb-3 flex justify-between">
-    <div>
-      <%= label_tag :start_date %>
-      <%= date_field_tag :start_date, "", required: true %>
-    </div>
-
-    <div>
-      <%= label_tag :end_date %>
-      <%= date_field_tag :end_date, "", required: true %>
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <%= label_tag :location %>
-    <%= text_field_tag :location, "", required: true, class: "w-full" %>
-  </div>
-
-  <div class="flex justify-end">
-    <%= submit_tag "Save", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
-  </div>
+<%= form_with(url: gigs_path, method: :post) do |form| %>
+  <%= render 'form_fields', form: form %>
 <% end %>

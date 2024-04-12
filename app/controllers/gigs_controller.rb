@@ -4,6 +4,7 @@ require 'google/apis/calendar_v3'
 class GigsController < ApplicationController
   before_action :authenticate
   before_action :set_service, except: [:new]
+  before_action :set_gig, only: [:create, :update]
   
   def index
     @gigs = @service.list_events(
@@ -31,10 +32,10 @@ class GigsController < ApplicationController
     responses = Response.where(gig_id: params[:id])
     @going = responses.where(status: "Going").collect{ |x| x.user }
     @interested = responses.where(status: "Interested").collect{ |x| x.user }
-    @response = responses.find_by(user_id: current_user.id) || Response.new
+    @response = responses.find_by(user_id: current_user.id).presence || Response.new
 
-    start_date = @gig.start.date || @gig.start.date_time
-    end_date = @gig.end.date || @gig.end.date_time
+    start_date = @gig.start.date.presence || @gig.start.date_time
+    end_date = @gig.end.date.presence || @gig.end.date_time
     @clashes = []
     @clash_list = @service.list_events(
       ENV['GOOGLE_CALENDAR_ID'],
@@ -47,29 +48,40 @@ class GigsController < ApplicationController
   end
 
   def new
+    @gig = OpenStruct.new({
+      summary: nil,
+      start: nil,
+      end: nil,
+      location: nil
+    })
   end
 
   def create
-    gig = Google::Apis::CalendarV3::Event.new(
-      summary: params[:description],
-      start: Google::Apis::CalendarV3::EventDateTime.new(date: params[:start_date]),
-      end: Google::Apis::CalendarV3::EventDateTime.new(date: params[:end_date]),
-      location: params[:location]
-    )
-
-    result = @service.insert_event(ENV['GOOGLE_CALENDAR_ID'], gig)
+    result = @service.insert_event(ENV['GOOGLE_CALENDAR_ID'], @gig)
 
     if result.id.present?
       action = Action.new({
         user_id: current_user.id,
         gig_id: result.id,
-        gig_name: gig.summary,
+        gig_name: @gig.summary,
         kind: "gig"
       })
       action.save
     end
 
     redirect_to gigs_path
+  end
+
+  def edit
+    @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
+  end
+
+  def update
+    result = @service.update_event(ENV['GOOGLE_CALENDAR_ID'], params[:id], @gig)
+
+    if result.id.present?
+      redirect_to gigs_path
+    end
   end
 
   private
@@ -85,5 +97,14 @@ class GigsController < ApplicationController
           Time.now.to_i + new_access_token['expires_in'].to_i
         token.save
       end
+    end
+
+    def set_gig
+      @gig = Google::Apis::CalendarV3::Event.new(
+        summary: params[:description],
+        start: Google::Apis::CalendarV3::EventDateTime.new(date: params[:start_date]),
+        end: Google::Apis::CalendarV3::EventDateTime.new(date: params[:end_date].presence || params[:start_date]),
+        location: params[:location]
+      )
     end
 end
