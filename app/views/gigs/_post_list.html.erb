@@ -5,8 +5,7 @@
         <div class="p-2 rounded <%= post.user_id == current_user.id ? 'bg-blue-200' : 'bg-gray-200' %>">
           <% if post.user_id != current_user.id %>
             <div class="text-xs flex items-center mb-1">
-              <%= image_tag post.user.image, class: "rounded-full h-6 w-6 mr-1" %>
-              <%= post.user.name %>
+              <%= render 'layouts/user', user: post.user %>
             </div>
           <% end %>
           <p><%= post.text %></p>

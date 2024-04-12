@@ -26,7 +26,7 @@ class ResponsesController < ApplicationController
       @response.destroy
       @action.destroy
     elsif @response.update(response_params)
-      action.update({ status: @response.status })
+      @action.update({ status: @response.status })
     end
     redirect_to gig_path(@response.gig_id)
   end
