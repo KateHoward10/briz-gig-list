@@ -74,6 +74,10 @@ class GigsController < ApplicationController
 
   def edit
     @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
+    if current_user.email != @gig.creator.email
+      redirect_to gigs_path
+      flash[:alert] = "You are not authorised to edit this gig"
+    end
   end
 
   def update

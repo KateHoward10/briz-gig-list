@@ -1,0 +1,4 @@
+<div class="relative flex justify-between py-2 space-x-2 border rounded <%= color_classes %>" role="alert">
+  <span><%= message %></span>
+  <%= heroicon "x-mark", options: { "data-action": "click->flash-message#close", class: "w-6 h-6 fill-current", role: "button" } %>
+</div>

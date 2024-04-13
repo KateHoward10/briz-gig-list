@@ -1,0 +1,9 @@
+<% if flash.any? %>
+  <div data-controller="flash-message" class="inset-0 py-6 items-start justify-end">
+    <div class="flex flex-col justify-center">
+      <% flash.each do |key, value| %>
+        <%= render FlashMessage::Component.new(type: key, message: value) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
