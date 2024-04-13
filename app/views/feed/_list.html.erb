@@ -20,7 +20,7 @@
             <p class="ml-7 truncate italic text-sm"><%= action.text %></p>
           <% end %>
         </div>
-        <span class="text-xs italic"><%= action.updated_at.strftime("%a %d %b %H:%M") %></span>
+        <span class="text-xs italic"><%= format_datetime(action.updated_at) %></span>
       </div>
     <% end %>
   <% end %>

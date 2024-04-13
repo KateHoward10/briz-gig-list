@@ -10,7 +10,7 @@ class GigsController < ApplicationController
     @gigs = @service.list_events(
       ENV['GOOGLE_CALENDAR_ID'],
       single_events: true,
-      time_min: Time.now.to_datetime.rfc3339,
+      time_min: DateTime.now.midnight.to_datetime.rfc3339,
       order_by: "startTime"
     ).items
   end
@@ -19,7 +19,7 @@ class GigsController < ApplicationController
     @gigs = @service.list_events(
       ENV['GOOGLE_CALENDAR_ID'],
       single_events: true,
-      time_max: Time.now.to_datetime.rfc3339,
+      time_max: DateTime.now.midnight.to_datetime.rfc3339,
       order_by: "startTime"
     ).items.reverse
   end
@@ -39,8 +39,8 @@ class GigsController < ApplicationController
     @clashes = []
     @clash_list = @service.list_events(
       ENV['GOOGLE_CALENDAR_ID'],
-      time_min: start_date.to_datetime.rfc3339,
-      time_max: end_date.to_datetime.rfc3339
+      time_min: start_date.midnight.to_datetime.rfc3339,
+      time_max: end_date.end_of_day.to_datetime.rfc3339
     )
     @clash_list.items.each do |clash|
       @clashes << clash unless clash.id == @gig.id
