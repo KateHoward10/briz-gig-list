@@ -2,11 +2,7 @@
   <div class="mb-2">
     <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
     <p class="italic">
-      <% if @gig.start.date.present? %>
-        <%= format_date(@gig.start.date) %>
-      <% elsif @gig.start.date_time.present? %>
-        <%= format_datetime(@gig.start.date_time) %>
-      <% end %>
+      <%= format_google_times(@gig) %>
     </p>
     <p class="mb-2"><%= @gig.location %></p>
     <%= render 'user_list', users: @going, status: "going" %>

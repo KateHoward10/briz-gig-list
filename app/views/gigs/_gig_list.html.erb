@@ -5,11 +5,7 @@
         <%= link_to gig_path(gig.id), class: "hover:text-blue-700" do %>
           <p class="font-semibold"><%= gig.summary %>
           <p class="text-sm italic">
-            <% if gig.start.date.present? %>
-              <%= format_date(gig.start.date) %>
-            <% elsif gig.start.date_time.present? %>
-              <%= format_date(gig.start.date_time) %>
-            <% end %>
+            <%= format_google_dates(gig) %>
           </p>
           <p class="text-sm"><%= gig.location.split(", ")[0] unless gig.location.nil? %></p>
         <% end %>
