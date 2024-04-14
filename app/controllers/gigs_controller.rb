@@ -84,6 +84,12 @@ class GigsController < ApplicationController
     result = @service.update_event(ENV['GOOGLE_CALENDAR_ID'], params[:id], @gig)
 
     if result.id.present?
+      actions = Action.where(gig_id: result.id)
+      if actions.any? && result.summary.present?
+        actions.each do |action|
+          action.update({ gig_name: result.summary })
+        end
+      end
       redirect_to gigs_path
     end
   end
