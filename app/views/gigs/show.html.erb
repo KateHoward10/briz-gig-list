@@ -1,5 +1,5 @@
-<div class="flex justify-between items-start">
-  <div>
+<div class="flex flex-wrap justify-between items-start">
+  <div class="mb-2">
     <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
     <p class="italic">
       <% if @gig.start.date.present? %>
@@ -13,7 +13,7 @@
     <%= render 'user_list', users: @interested, status: "interested" %>
   </div>
 
-  <div class="flex flex-col items-end">
+  <div class="flex flex-col items-end ml-auto">
     <%= form_with(model: @response, class: "flex items-center mb-2") do |form| %>
       <%= form.hidden_field :gig_id, value: @gig.id %>
       <%= form.hidden_field :gig_name, value: @gig.summary %>
