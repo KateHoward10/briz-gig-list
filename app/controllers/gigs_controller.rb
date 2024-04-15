@@ -4,10 +4,12 @@ class GigsController < ApplicationController
   
   def index
     @gigs = Gig.where("start_date >= ?", Date.today).order(:start_date)
+    @gigs_by_month = @gigs.group_by {|a| a.start_date.strftime("%B %Y") }
   end
 
   def past
     @gigs = Gig.where("end_date < ?", Date.today).order(start_date: :desc)
+    @gigs_by_month = @gigs.group_by {|a| a.start_date.strftime("%B %Y") }
   end
 
   def show

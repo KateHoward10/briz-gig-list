@@ -3,6 +3,6 @@ class FeedController < ApplicationController
 
   def index
     @actions = Action.order(updated_at: :desc).limit(20)
-    @actions_by_date = @actions.group_by {|a| a.updated_at.to_date }
+    @actions_by_date = @actions.group_by {|a| a.created_at.to_date }
   end
 end

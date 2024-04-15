@@ -1,21 +1,25 @@
-<% if gigs.present? %>
-  <ul>
-    <% gigs.each do |gig| %>
-      <li class="mb-4">
-        <%= link_to gig_path(gig.id), class: "hover:text-blue-700" do %>
-          <p class="font-semibold"><%= gig.summary %>
-          <p class="text-sm italic flex items-center">
-            <%= heroicon "calendar-days", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
-            <%= format_gig_dates(gig) %>
-          </p>
-          <p class="text-sm flex items-center">
-            <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
-            <%= gig.location.split(", ")[0] unless gig.location.nil? %>
-          </p>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+<% if gigs_by_month.any? %>
+  <% gigs_by_month.each do |month, gigs| %>
+    <%= render 'layouts/date_divider', title: month %>
+    <div class="mb-10">
+      <% gigs.each do |gig| %>
+        <div class="mb-4">
+          <%= link_to gig_path(gig.id), class: "flex hover:text-blue-700" do %>
+            <div class="rounded border border-2 border-gray-400 p-1 w-12 h-12 text-center text-xs flex items-center mr-2">
+              <%= gig.start_date.strftime("%a %e") %>
+            </div>
+            <div class="w-full sm:flex items-center justify-between">
+              <span class="font-semibold text-nowrap"><%= gig.summary %></span>
+              <span class="text-sm flex items-center text-nowrap">
+                <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
+                <%= gig.location.split(", ")[0] unless gig.location.nil? %>
+              </span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% else %>
   <p class="text-red-800">No gigs found</p>
 <% end %>

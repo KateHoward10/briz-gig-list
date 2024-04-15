@@ -1,10 +1,10 @@
 <% if actions_by_date.any? %>
   <% actions_by_date.each do |date, actions| %>
-    <h3 class="text-xs font-semibold mb-1"><%= format_date(date) %></h3>
-    <div class="mb-6">
+    <%= render 'layouts/date_divider', title: format_date(date) %>
+    <div class="mb-10">
       <% actions.each do |action| %>
         <% if action.gig_id %>
-          <div class="flex row-wrap justify-between items-center mb-2">
+          <div class="flex row-wrap justify-between items-center mb-3">
             <div class="max-w-[75VW]">
               <p class="flex text-nowrap text-sm items-center">
                 <%= render 'layouts/user', user: action.user %>
@@ -28,7 +28,7 @@
               <% elsif action.kind == "link" %>
               <% end %>
             </div>
-            <span class="text-xs italic text-right"><%= format_time(action.updated_at) %></span>
+            <span class="text-xs italic text-right"><%= format_time(action.created_at) %></span>
           </div>
         <% end %>
       <% end %>
