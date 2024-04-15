@@ -5,10 +5,12 @@
       <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-2" } %>
       <%= format_gig_dates(@gig) %>
     </p>
-    <p class="mb-2 flex items-center">
-      <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-      <%= @gig.location %>
-    </p>
+    <%= link_to venue_path(@gig.location) do %>
+      <p class="mb-2 flex items-center hover:text-blue-700">
+        <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
+        <%= @gig.location %>
+      </p>
+    <% end %>
     <%= render 'user_list', users: @going, status: "going" %>
     <%= render 'user_list', users: @interested, status: "interested" %>
   </div>

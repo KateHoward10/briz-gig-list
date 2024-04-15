@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#logout"
 
   get "gigs/past", to: "gigs#past"
-  resources :gigs
+  resources :gigs, except: :destroy
 
   resources :links
   resources :posts
   resources :responses
+  resources :venues, only: :show
 
   get "feed", to: "feed#index"
   get "profile", to: "profile#index"

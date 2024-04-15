@@ -3,19 +3,21 @@
     <%= render 'layouts/date_divider', title: month %>
     <div class="mb-10">
       <% gigs.each do |gig| %>
-        <div class="mb-4">
-          <%= link_to gig_path(gig.id), class: "flex hover:text-blue-700" do %>
-            <div class="rounded border border-2 border-gray-400 p-1 w-12 h-12 text-center text-xs flex items-center mr-2">
-              <%= gig.start_date.strftime("%a %e") %>
-            </div>
-            <div class="w-full sm:flex items-center justify-between">
-              <span class="font-semibold text-nowrap"><%= gig.summary %></span>
-              <span class="text-sm flex items-center text-nowrap">
-                <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
-                <%= gig.location.split(", ")[0] unless gig.location.nil? %>
-              </span>
-            </div>
-          <% end %>
+        <div class="mb-4 flex">
+          <div class="rounded border border-2 border-gray-400 p-1 w-12 h-12 text-center text-xs flex items-center mr-2">
+            <%= gig.start_date.strftime("%a %e") %>
+          </div>
+          <div class="w-full sm:flex items-center justify-between">
+            <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold text-nowrap hover:text-blue-700" %>
+            <% unless local_assigns[:hide_venue] %>
+              <%= link_to venue_path(gig.location) do %>
+                <span class="text-sm flex items-center text-nowrap hover:text-blue-700">
+                  <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
+                  <%= gig.location.split(", ")[0] %>
+                </span>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
