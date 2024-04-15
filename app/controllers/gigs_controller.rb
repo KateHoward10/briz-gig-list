@@ -58,10 +58,6 @@ class GigsController < ApplicationController
       end: nil,
       location: nil
     })
-    if params[:location]
-      @results = Geocoder.search(params[:location])
-    end
-    puts @results
   end
 
   def create
