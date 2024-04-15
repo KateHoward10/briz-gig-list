@@ -22,7 +22,6 @@ class LinksController < ApplicationController
       action = Action.new({
         user_id: current_user.id,
         gig_id: @link.gig_id,
-        gig_name: params[:link][:gig_name],
         kind: "link",
         text: @link.url
       })

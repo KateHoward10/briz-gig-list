@@ -9,7 +9,6 @@ class ResponsesController < ApplicationController
         @action = Action.new({
           user_id: current_user.id,
           gig_id: @response.gig_id,
-          gig_name: params[:response][:gig_name],
           kind: "response",
           status: @response.status,
         })

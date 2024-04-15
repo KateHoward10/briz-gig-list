@@ -10,22 +10,21 @@
   </div>
 
   <div class="flex flex-col items-end ml-auto">
-    <%= form_with(model: @response, class: "flex items-center mb-2") do |form| %>
-      <%= form.hidden_field :gig_id, value: @gig.id %>
-      <%= form.hidden_field :gig_name, value: @gig.summary %>
-      <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
-      <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
-    <% end %>
     <% if @gig.user_id == current_user.id %>
       <%= link_to "Edit gig", edit_gig_path(@gig.id), class: "font-semibold text-blue-700 hover:underline" %>
     <% else %>
-      <p class="text-xs">Added by <%= @gig.user.fullname %></p>
+      <p class="text-xs">Added by <%= @gig.user.name %></p>
+    <% end %>
+
+    <%= form_with(model: @response, class: "flex items-center my-2") do |form| %>
+      <%= form.hidden_field :gig_id, value: @gig.id %>
+      <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
+      <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
     <% end %>
 
     <div class="my-4">
       <%= form_with(model: @link, class: "flex items-center mb-2") do |form| %>
         <%= form.hidden_field :gig_id, value: @gig.id %>
-        <%= form.hidden_field :gig_name, value: @gig.summary %>
         <%= form.text_field :url, class: "w-full py-0 px-1", required: true %>
     
         <%= submit_tag "Add link", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
@@ -43,7 +42,6 @@
 <div class="my-4">
   <%= form_with(model: @post, class: "flex flex-col items-end") do |form| %>
     <%= form.hidden_field :gig_id, value: @gig.id %>
-    <%= form.hidden_field :gig_name, value: @gig.summary %>
     <%= form.text_area :text, class: "w-full", required: true %>
 
     <%= submit_tag "Add post", class: "border border-2 cursor-pointer rounded px-2 mt-2 ml-auto font-semibold hover:bg-gray-200" %>

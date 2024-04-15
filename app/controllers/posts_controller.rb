@@ -8,7 +8,6 @@ class PostsController < ApplicationController
       action = Action.new({
         user_id: current_user.id,
         gig_id: @post.gig_id,
-        gig_name: params[:post][:gig_name],
         kind: "post",
         text: @post.text
       })
