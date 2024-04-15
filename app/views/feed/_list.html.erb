@@ -17,12 +17,15 @@
                     <%= action.status == "Interested" ? " in " : " to " %>
                   <% elsif action.kind == "gig" %>
                     <%= " added " %>
+                  <% elsif action.kind == "link" %>
+                    <%= " added a link to " %>
                   <% end %>
                 </span>
                 <%= link_to action.gig_name, gig_path(action.gig_id), class: "ml-1 truncate font-semibold text-blue-700 hover:underline" %>
               </p>
               <% if action.kind == "post" && action.text.present? %>
                 <p class="ml-7 truncate italic text-sm"><%= action.text %></p>
+              <% elsif action.kind == "link" %>
               <% end %>
             </div>
             <span class="text-xs italic text-right"><%= format_time(action.updated_at) %></span>

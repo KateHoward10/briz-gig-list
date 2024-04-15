@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "gigs/past", to: "gigs#past"
   resources :gigs
 
+  resources :links
   resources :posts
   resources :responses
 

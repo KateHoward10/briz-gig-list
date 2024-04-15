@@ -19,8 +19,20 @@
     <% if @gig.creator.email == current_user.email %>
       <%= link_to "Edit gig", edit_gig_path(@gig.id), class: "font-semibold text-blue-700 hover:underline" %>
     <% end %>
+
+    <div class="my-4">
+      <%= form_with(model: @link, class: "flex items-center mb-2") do |form| %>
+        <%= form.hidden_field :gig_id, value: @gig.id %>
+        <%= form.hidden_field :gig_name, value: @gig.summary %>
+        <%= form.text_field :url, class: "w-full py-0 px-1", required: true %>
+    
+        <%= submit_tag "Add link", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<%= render 'link_list', links: @links %>
 
 <%= render 'clash_list', clashes: @clashes, gig: @gig %>
 
