@@ -18,12 +18,7 @@
 
   <body>
     <% if current_user.present? %>
-      <nav class="px-8 py-4 flex justify-between bg-blue-400">
-        <%= link_to "Feed", feed_path, class: "rounded px-2 hover:bg-blue-300" %>
-        <%= link_to "Gigs", gigs_path, class: "rounded px-2 hover:bg-blue-300" %>
-        <%= link_to "Profile", profile_path, class: "rounded px-2 hover:bg-blue-300" %>
-        <%= link_to "Log out", logout_path, class: "rounded px-2 hover:bg-blue-300" %>
-      </nav>
+      <%= render 'layouts/nav' %>
     <% end %>
     <main class="container mx-auto my-12 px-5">
       <%= render 'shared/flash_messages' %>

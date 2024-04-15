@@ -1,0 +1,18 @@
+<nav class="px-8 py-3 sm:py-4 text-sm sm:text-md flex justify-between bg-blue-400 sticky top-0">
+  <%= link_to feed_path, class: "flex items-center rounded px-2 hover:bg-blue-300" do %>
+    <%= heroicon "list-bullet", variant: :mini, options: { class: "w-5 h-5" } %>
+    <span class="hidden sm:flex ml-1">Feed</span>
+  <% end %>
+  <%= link_to gigs_path, class: "flex items-center rounded px-2 hover:bg-blue-300" do %>
+    <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5" } %>
+    <span class="hidden sm:flex ml-1">Gigs</span>
+  <% end %>
+  <%= link_to profile_path, class: "flex items-center rounded px-2 hover:bg-blue-300" do %>
+    <%= heroicon "user-circle", variant: :mini, options: { class: "w-5 h-5" } %>
+    <span class="hidden sm:flex ml-1">Profile</span>
+  <% end %>
+  <%= link_to logout_path, class: "flex items-center rounded px-2 hover:bg-blue-300" do %>
+    <%= heroicon "arrow-right-on-rectangle", variant: :mini, options: { class: "w-5 h-5" } %>
+    <span class="hidden sm:flex ml-1">Log out</span>
+  <% end %>
+</nav>

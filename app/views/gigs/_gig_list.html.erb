@@ -4,10 +4,14 @@
       <li class="mb-4">
         <%= link_to gig_path(gig.id), class: "hover:text-blue-700" do %>
           <p class="font-semibold"><%= gig.summary %>
-          <p class="text-sm italic">
+          <p class="text-sm italic flex items-center">
+            <%= heroicon "calendar-days", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
             <%= format_gig_dates(gig) %>
           </p>
-          <p class="text-sm"><%= gig.location.split(", ")[0] unless gig.location.nil? %></p>
+          <p class="text-sm flex items-center">
+            <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+            <%= gig.location.split(", ")[0] unless gig.location.nil? %>
+          </p>
         <% end %>
       </li>
     <% end %>

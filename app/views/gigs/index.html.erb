@@ -3,7 +3,10 @@
     <h1 class="text-xl font-bold">Upcoming gigs</h1>
     <%= link_to "Past gigs", gigs_past_path, class: "text-sm font-semibold text-blue-700 hover:underline" %>
   </div>
-  <%= link_to "Add gig", new_gig_path, class: "font-semibold text-blue-700 hover:underline" %>
+  <%= link_to new_gig_path, class: "flex items-center font-semibold text-blue-700 hover:underline" do %>
+    <%= heroicon "plus", options: { class: "w-4 h-4" } %>
+    Add gig
+  <% end %>
 </div>
 
 <%= render 'gig_list', gigs: @gigs %>

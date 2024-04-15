@@ -3,7 +3,7 @@ module GigsHelper
     if datetime.blank?
       nil
     else
-      datetime.to_datetime.in_time_zone("London").strftime("%a %d %b")
+      datetime.to_datetime.in_time_zone("London").strftime("%a %e %b")
     end
   end
 
@@ -11,7 +11,7 @@ module GigsHelper
     if datetime.blank?
       nil
     else
-      datetime.in_time_zone("London").strftime("%a %d %b %H:%M")
+      datetime.in_time_zone("London").strftime("%a %e %b %H:%M")
     end
   end
 

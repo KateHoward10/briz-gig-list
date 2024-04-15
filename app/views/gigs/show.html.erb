@@ -1,17 +1,24 @@
 <div class="flex flex-wrap justify-between items-start">
   <div class="mb-2">
     <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
-    <p class="italic">
+    <p class="italic flex items-center">
+      <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-2" } %>
       <%= format_gig_dates(@gig) %>
     </p>
-    <p class="mb-2"><%= @gig.location %></p>
+    <p class="mb-2 flex items-center">
+      <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
+      <%= @gig.location %>
+    </p>
     <%= render 'user_list', users: @going, status: "going" %>
     <%= render 'user_list', users: @interested, status: "interested" %>
   </div>
 
   <div class="flex flex-col items-end ml-auto">
     <% if @gig.user_id == current_user.id %>
-      <%= link_to "Edit gig", edit_gig_path(@gig.id), class: "font-semibold text-blue-700 hover:underline" %>
+      <%= link_to edit_gig_path(@gig.id), class: "flex items-center font-semibold text-blue-700 hover:underline" do %>
+        <%= heroicon "pencil", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+        Edit gig
+      <% end %>
     <% else %>
       <p class="text-xs">Added by <%= @gig.user.name %></p>
     <% end %>
@@ -22,7 +29,7 @@
       <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
     <% end %>
 
-    <div class="my-4">
+    <div class="mt-4">
       <%= form_with(model: @link, class: "flex items-center mb-2") do |form| %>
         <%= form.hidden_field :gig_id, value: @gig.id %>
         <%= form.text_field :url, class: "w-full py-0 px-1", required: true %>
@@ -44,6 +51,9 @@
     <%= form.hidden_field :gig_id, value: @gig.id %>
     <%= form.text_area :text, class: "w-full", required: true %>
 
-    <%= submit_tag "Add post", class: "border border-2 cursor-pointer rounded px-2 mt-2 ml-auto font-semibold hover:bg-gray-200" %>
+    <%= button_tag type: "submit", class: "flex items-center border border-2 cursor-pointer rounded px-2 mt-2 ml-auto font-semibold hover:bg-gray-200" do %>
+      <%= heroicon "paper-airplane", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+      Add post
+    <% end %>
   <% end %>
 </div>
