@@ -2,7 +2,7 @@
   <div class="mb-2">
     <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
     <p class="italic">
-      <%= format_google_times(@gig) %>
+      <%= format_gig_dates(@gig) %>
     </p>
     <p class="mb-2"><%= @gig.location %></p>
     <%= render 'user_list', users: @going, status: "going" %>
@@ -16,8 +16,10 @@
       <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
       <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
     <% end %>
-    <% if @gig.creator.email == current_user.email %>
+    <% if @gig.user_id == current_user.id %>
       <%= link_to "Edit gig", edit_gig_path(@gig.id), class: "font-semibold text-blue-700 hover:underline" %>
+    <% else %>
+      <p class="text-xs">Added by <%= @gig.user.fullname %></p>
     <% end %>
 
     <div class="my-4">

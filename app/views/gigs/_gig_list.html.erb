@@ -5,7 +5,7 @@
         <%= link_to gig_path(gig.id), class: "hover:text-blue-700" do %>
           <p class="font-semibold"><%= gig.summary %>
           <p class="text-sm italic">
-            <%= format_google_dates(gig) %>
+            <%= format_gig_dates(gig) %>
           </p>
           <p class="text-sm"><%= gig.location.split(", ")[0] unless gig.location.nil? %></p>
         <% end %>

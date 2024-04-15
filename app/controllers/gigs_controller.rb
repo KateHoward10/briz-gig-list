@@ -3,30 +3,18 @@ require 'google/apis/calendar_v3'
 
 class GigsController < ApplicationController
   before_action :authenticate
-  before_action :set_service, except: [:new]
-  before_action :set_gig, only: [:create, :update]
+  before_action :set_service, only: [:index]
+  before_action :set_gig, only: [:show, :edit, :update]
   
   def index
-    @gigs = @service.list_events(
-      ENV['GOOGLE_CALENDAR_ID'],
-      single_events: true,
-      time_min: DateTime.now.midnight.to_datetime.rfc3339,
-      order_by: "startTime"
-    ).items
+    @gigs = Gig.where("start_date >= ?", Date.today).order(:start_date)
   end
 
   def past
-    @gigs = @service.list_events(
-      ENV['GOOGLE_CALENDAR_ID'],
-      single_events: true,
-      time_max: DateTime.now.midnight.to_datetime.rfc3339,
-      order_by: "startTime"
-    ).items.reverse
+    @gigs = Gig.where("end_date < ?", Date.today).order(start_date: :desc)
   end
 
   def show
-    @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
-
     @posts = Post.where(gig_id: params[:id])
     @post = Post.new
 
@@ -38,63 +26,48 @@ class GigsController < ApplicationController
     @interested = responses.where(status: "Interested").collect{ |x| x.user }
     @response = responses.find_by(user_id: current_user.id).presence || Response.new
 
-    start_date = @gig.start.date.presence || @gig.start.date_time
-    end_date = @gig.end.date.presence || @gig.end.date_time
-    @clashes = []
-    @clash_list = @service.list_events(
-      ENV['GOOGLE_CALENDAR_ID'],
-      time_min: start_date.to_datetime.rfc3339,
-      time_max: end_date.to_datetime.rfc3339
-    )
-    @clash_list.items.each do |clash|
-      @clashes << clash unless clash.id == @gig.id
-    end
+    @clashes = Gig.where.not(id: @gig.id)
+                  .where("start_date <= ?", @gig.end_date)
+                  .where("end_date >= ?", @gig.start_date)
   end
 
   def new
-    @gig = OpenStruct.new({
-      summary: nil,
-      start: nil,
-      end: nil,
-      location: nil
-    })
+    @gig = Gig.new()
   end
 
   def create
-    result = @service.insert_event(ENV['GOOGLE_CALENDAR_ID'], @gig)
+    @gig = Gig.new(gig_params)
+    @gig.user = current_user
 
-    if result.id.present?
-      action = Action.new({
-        user_id: current_user.id,
-        gig_id: result.id,
-        gig_name: @gig.summary,
-        kind: "gig"
-      })
-      action.save
+    respond_to do |format|
+      if @gig.save
+        action = Action.new({ user_id: current_user.id, gig_id: @gig.id, kind: "gig" })
+        action.save
+        format.html { redirect_to @gig, notice: "Your gig has been created!" }
+        format.json { render :show, status: :created, location: @gig }
+      else
+        format.html { render :new }
+        format.json { render json: @gig.errors, status: :unprocessable_entity }
+      end
     end
-
-    redirect_to gigs_path
   end
 
   def edit
-    @gig = @service.get_event(ENV['GOOGLE_CALENDAR_ID'], params[:id])
-    if current_user.email != @gig.creator.email
+    if current_user.id != @gig.user_id
       redirect_to gigs_path
       flash[:alert] = "You are not authorised to edit this gig"
     end
   end
 
   def update
-    result = @service.update_event(ENV['GOOGLE_CALENDAR_ID'], params[:id], @gig)
-
-    if result.id.present?
-      actions = Action.where(gig_id: result.id)
-      if actions.any? && result.summary.present?
-        actions.each do |action|
-          action.update({ gig_name: result.summary })
-        end
+    respond_to do |format|
+      if @gig.update(gig_params)
+        format.html { redirect_to @gig, notice: "Gig was successfully updated" }
+        format.json { render :show, status: :ok, location: @gig }
+      else
+        format.html { render :edit }
+        format.json { render json: @gig.errors, status: :unprocessable_entity }
       end
-      redirect_to gigs_path
     end
   end
 
@@ -114,11 +87,11 @@ class GigsController < ApplicationController
     end
 
     def set_gig
-      @gig = Google::Apis::CalendarV3::Event.new(
-        summary: params[:description],
-        start: Google::Apis::CalendarV3::EventDateTime.new(date: params[:start_date]),
-        end: Google::Apis::CalendarV3::EventDateTime.new(date: params[:end_date].presence || params[:start_date]),
-        location: params[:location]
-      )
+      @gig = Gig.find(params[:id])
+    end
+
+    def gig_params
+      params[:gig][:end_date] = params[:gig][:start_date] if params[:gig][:end_date].blank?
+      params.require(:gig).permit(:summary, :start_date, :end_date, :location)
     end
 end

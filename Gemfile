@@ -49,7 +49,6 @@ gem "bootsnap", require: false
 
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
-gem "google-apis-calendar_v3"
 
 gem "view_component"
 gem "heroicon"

@@ -1,12 +1,3 @@
 <h1 class="text-xl font-bold mb-6">Add a new gig</h1>
 
-<%= form_with(
-  url: gigs_path,
-  method: :post,
-  data: {
-    controller: "places",
-    action: "google-maps-callback@window->places#initMap"
-  }
-) do |form| %>
-  <%= render 'form_fields', form: form %>
-<% end %>
+<%= render 'form', gig: @gig %>
