@@ -3,13 +3,7 @@
   <ul>
     <% links.each do |link| %>
       <li>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="<%= link.url %>" class="font-semibold text-sm text-blue-700 hover:underline"
-        >
-          <%= link.text.presence || link.url %>
-        </a>
+        <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
       </li>
     <% end %>
   </ul>

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :links
   resources :posts
   resources :responses
-  resources :venues, only: :show
+  resources :venues, only: [:index, :show]
 
   get "feed", to: "feed#index"
   get "profile", to: "profile#index"
