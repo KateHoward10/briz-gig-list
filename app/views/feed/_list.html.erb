@@ -4,29 +4,27 @@
     <div class="mb-10">
       <% actions.each do |action| %>
         <% if action.gig_id %>
-          <div class="flex row-wrap justify-between items-center mb-3">
-            <div class="max-w-[80VW]">
-              <p class="text-xs sm:text-sm sm:flex sm:items-center">
-                <%= render 'layouts/user', user: action.user %>
-                <span class="block ml-7 sm:ml-1 -mt-1 mt-0">
-                  <% if action.kind == "post" %>
-                    <%= " posted in" %>
-                  <% elsif action.kind == "response" %>
-                    <%= action.user.id == current_user.id ? "are" : "is" %>
-                    <%= action.status.downcase %>
-                    <%= action.status == "Interested" ? " in " : " to " %>
-                  <% elsif action.kind == "gig" %>
-                    <%= " added " %>
-                  <% elsif action.kind == "link" %>
-                    <%= " added a link to " %>
-                  <% end %>
-                  <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "font-semibold text-blue-700 hover:underline" %>
-                </span>
-              </p>
-              <% if action.kind == "post" && action.text.present? %>
-                <p class="ml-7 truncate italic text-sm"><%= action.text %></p>
-              <% elsif action.kind == "link" %>
-              <% end %>
+          <div class="flex justify-between mb-3">
+            <div class="max-w-[80VW] flex">
+              <%= image_tag action.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+              <div class="text-xs sm:text-sm mt-1 sm:mt-0">
+                <%= action.user.id == current_user.id ? "You" : action.user.name %>
+                <% if action.kind == "post" %>
+                  <%= " posted in" %>
+                <% elsif action.kind == "response" %>
+                  <%= action.user.id == current_user.id ? "are" : "is" %>
+                  <%= action.status.downcase %>
+                  <%= action.status == "Interested" ? " in " : " to " %>
+                <% elsif action.kind == "gig" %>
+                  <%= " added " %>
+                <% elsif action.kind == "link" %>
+                  <%= " added a link to " %>
+                <% end %>
+                <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "font-semibold text-blue-700 hover:underline" %>
+                <% if action.kind == "post" && action.text.present? %>
+                  <p class="truncate italic text-sm"><%= action.text %></p>
+                <% end %>
+              </div>
             </div>
             <span class="text-xs italic text-right"><%= format_time(action.created_at) %></span>
           </div>
