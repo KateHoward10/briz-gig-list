@@ -4,11 +4,17 @@
     <div class="mb-10">
       <% gigs.each do |gig| %>
         <div class="mb-4 flex">
-          <div class="rounded border border-2 border-gray-400 p-1 w-12 h-12 text-center text-xs flex items-center mr-2">
-            <%= gig.start_date.strftime("%a %e") %>
+          <div class="mr-2">
+            <%= render 'date_box', date: gig.start_date %>
+            <% if gig.end_date.present? && gig.end_date != gig.start_date %>
+              <div class="flex flex-col items-center">
+                <%= heroicon "arrow-down", variant: :mini, options: { class: "w-4 h-4" } %>
+              </div>
+              <%= render 'date_box', date: gig.end_date %>
+            <% end %>
           </div>
-          <div class="w-full sm:flex items-center justify-between">
-            <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold text-nowrap hover:text-blue-700" %>
+          <div class="sm:w-full sm:flex items-center justify-between">
+            <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700" %>
             <% unless local_assigns[:hide_venue] %>
               <%= link_to venue_path(gig.location) do %>
                 <span class="text-sm flex items-center text-nowrap hover:text-blue-700">
