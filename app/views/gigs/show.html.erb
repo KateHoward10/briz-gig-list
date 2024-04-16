@@ -38,13 +38,5 @@
 <%= render 'post_list', posts: @posts %>
 
 <div class="my-4">
-  <%= form_with(model: @post, class: "flex flex-col items-end") do |form| %>
-    <%= form.hidden_field :gig_id, value: @gig.id %>
-    <%= form.text_area :text, class: "w-full", required: true %>
-
-    <%= button_tag type: "submit", class: "flex items-center border border-2 cursor-pointer rounded px-2 mt-2 ml-auto font-semibold hover:bg-gray-200" do %>
-      <%= heroicon "paper-airplane", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
-      Add post
-    <% end %>
-  <% end %>
+  <%= render 'posts/form', post: @post, gig: @gig %>
 </div>

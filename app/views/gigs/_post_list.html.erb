@@ -1,16 +1,25 @@
 <% if posts.any? %>
   <ul class="my-6 p-2 border">
     <% posts.each do |post| %>
-      <li class="my-2 flex flex-col <%= post.user_id == current_user.id ? 'items-end' : 'items-start'  %>">
-        <div class="p-2 rounded <%= post.user_id == current_user.id ? 'bg-blue-200' : 'bg-gray-200' %>">
-          <% if post.user_id != current_user.id %>
-            <div class="text-xs flex items-center">
-              <%= render 'layouts/user', user: post.user %>
+      <li>
+        <% if post.user_id == current_user.id %>
+          <div class="my-2 flex flex-col items-end" do %>
+            <div class="p-2 rounded bg-blue-200">
+              <p class="text-sm"><%= post.text %></p>
             </div>
-          <% end %>
-          <p class="text-sm"><%= post.text %></p>
-        </div>
-        <p class="text-xs italic"><%= format_datetime(post.created_at) %></p>
+            <p class="text-xs italic"><%= format_datetime(post.created_at) %></p>
+          </div>
+        <% else %>
+          <div class="my-2 flex flex-col items-start">
+            <div class="p-2 rounded bg-gray-200">
+              <div class="text-xs flex items-center">
+                <%= render 'layouts/user', user: post.user %>
+              </div>
+              <p class="text-sm"><%= post.text %></p>
+            </div>
+            <p class="text-xs italic"><%= format_datetime(post.created_at) %></p>
+          </div>
+        <% end %>
       </li>
     <% end %>
   </ul>

@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   get "gigs/past", to: "gigs#past"
   resources :gigs, except: :destroy do
     resources :links
+    resources :posts
   end
 
-  resources :posts
   resources :responses
   resources :venues, only: [:index, :show]
 

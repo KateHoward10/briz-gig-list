@@ -4,5 +4,5 @@
 
 <%= form_with(model: [@gig, @gig.links.build], class: "flex flex-col items-end") do |form| %>
   <%= form.text_field :url, class: "w-full py-0 px-1" %>
-  <%= submit_tag "Save", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
+  <%= submit_tag "Save", class: "border border-2 cursor-pointer rounded px-2 mt-1 font-semibold hover:bg-gray-200" %>
 <% end %>
