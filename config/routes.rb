@@ -4,9 +4,10 @@ Rails.application.routes.draw do
   get "logout", to: "sessions#logout"
 
   get "gigs/past", to: "gigs#past"
-  resources :gigs, except: :destroy
+  resources :gigs, except: :destroy do
+    resources :links
+  end
 
-  resources :links
   resources :posts
   resources :responses
   resources :venues, only: [:index, :show]

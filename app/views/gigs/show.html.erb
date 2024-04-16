@@ -30,15 +30,6 @@
       <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
       <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
     <% end %>
-
-    <div class="mt-4">
-      <%= form_with(model: @link, class: "flex items-center mb-2") do |form| %>
-        <%= form.hidden_field :gig_id, value: @gig.id %>
-        <%= form.text_field :url, class: "w-full py-0 px-1", required: true %>
-    
-        <%= submit_tag "Add link", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
-      <% end %>
-    </div>
   </div>
 </div>
 
