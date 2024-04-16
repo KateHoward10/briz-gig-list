@@ -2,7 +2,7 @@
   <div class="flex flex-wrap justify-between items-center mt-4">
     <h2 class="text-xs uppercase">More info:</h2>
     <%= link_to new_gig_link_path(@gig.id), class: "flex items-center text-sm font-semibold text-blue-700 hover:underline" do %>
-      <%= heroicon "plus", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+      <%= heroicon "plus", variant: :outline, options: { class: "w-4 h-4" } %>
       Add link
     <% end %>
   </div>
@@ -16,7 +16,7 @@
   </ul>
 <% else %>
   <%= link_to new_gig_link_path(@gig.id), class: "flex items-center text-sm font-semibold text-blue-700 hover:underline" do %>
-    <%= heroicon "plus", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
+    <%= heroicon "plus", variant: :outline, options: { class: "w-4 h-4" } %>
     Add link
   <% end %>
 <% end %>

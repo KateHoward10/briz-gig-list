@@ -1,5 +1,6 @@
 <%= form_with(
   model: gig,
+  class: "text-sm",
   data: {
     controller: "places",
     action: "google-maps-callback@window->places#initMap"

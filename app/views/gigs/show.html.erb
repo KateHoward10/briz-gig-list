@@ -1,15 +1,13 @@
 <div class="flex flex-wrap justify-between items-start">
   <div class="mb-2">
     <h1 class="font-semibold text-xl"><%= @gig.summary %></h1>
-    <p class="italic flex items-center">
-      <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-2" } %>
+    <p class="text-xs sm:text-sm my-1 italic flex items-center">
+      <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
       <%= format_gig_dates(@gig) %>
     </p>
-    <%= link_to venue_path(@gig.location) do %>
-      <p class="mb-2 flex items-center hover:text-blue-700">
-        <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-2" } %>
-        <%= @gig.location %>
-      </p>
+    <%= link_to venue_path(@gig.location), class: "text-xs sm:text-sm mb-3 flex items-center hover:text-blue-700"  do %>
+      <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
+      <%= @gig.location %>
     <% end %>
     <%= render 'user_list', users: @going, status: "going" %>
     <%= render 'user_list', users: @interested, status: "interested" %>
