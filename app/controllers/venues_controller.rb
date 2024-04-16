@@ -2,7 +2,7 @@ class VenuesController < ApplicationController
   before_action :authenticate
 
   def index
-    @venues = Gig.distinct.pluck(:location)
+    @venues = Gig.distinct.pluck(:location).sort
   end
 
   def show
