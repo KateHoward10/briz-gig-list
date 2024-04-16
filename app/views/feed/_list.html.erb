@@ -1,14 +1,14 @@
 <% if actions_by_date.any? %>
   <% actions_by_date.each do |date, actions| %>
-    <%= render 'layouts/date_divider', title: format_date(date) %>
+    <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
     <div class="mb-10">
       <% actions.each do |action| %>
         <% if action.gig_id %>
           <div class="flex row-wrap justify-between items-center mb-3">
-            <div class="max-w-[75VW]">
-              <p class="flex text-nowrap text-sm items-center">
+            <div class="max-w-[80VW]">
+              <p class="text-xs sm:text-sm sm:flex sm:items-center">
                 <%= render 'layouts/user', user: action.user %>
-                <span class="ml-1">
+                <span class="block ml-7 sm:ml-1 -mt-1 mt-0">
                   <% if action.kind == "post" %>
                     <%= " posted in" %>
                   <% elsif action.kind == "response" %>
@@ -20,8 +20,8 @@
                   <% elsif action.kind == "link" %>
                     <%= " added a link to " %>
                   <% end %>
+                  <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "font-semibold text-blue-700 hover:underline" %>
                 </span>
-                <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "ml-1 truncate font-semibold text-blue-700 hover:underline" %>
               </p>
               <% if action.kind == "post" && action.text.present? %>
                 <p class="ml-7 truncate italic text-sm"><%= action.text %></p>
