@@ -10,4 +10,8 @@ class Gig < ApplicationRecord
   def end_after_start
     errors.add(:end_date, "must be after start date") unless end_date >= start_date
   end
+
+  def multimonth?
+    end_date.present? && end_date.strftime("%m%y") != start_date.strftime("%m%y")
+  end
 end
