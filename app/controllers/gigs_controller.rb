@@ -37,16 +37,10 @@ class GigsController < ApplicationController
     @gig = Gig.new(gig_params)
     @gig.user = current_user
 
-    respond_to do |format|
-      if @gig.save
-        action = Action.new({ user_id: current_user.id, gig_id: @gig.id, kind: "gig" })
-        action.save
-        format.html { redirect_to @gig, notice: "Your gig has been created!" }
-        format.json { render :show, status: :created, location: @gig }
-      else
-        format.html { render :new }
-        format.json { render json: @gig.errors, status: :unprocessable_entity }
-      end
+    if @gig.save
+      redirect_to gig_path(@gig.id)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -58,14 +52,10 @@ class GigsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @gig.update(gig_params)
-        format.html { redirect_to @gig, notice: "Gig was successfully updated" }
-        format.json { render :show, status: :ok, location: @gig }
-      else
-        format.html { render :edit }
-        format.json { render json: @gig.errors, status: :unprocessable_entity }
-      end
+    if @gig.update(gig_params)
+      redirect_to gig_path(@gig.id)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

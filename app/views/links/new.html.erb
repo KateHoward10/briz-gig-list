@@ -1,15 +1,8 @@
 <h1 class="text-xl font-bold mb-6">Add a link</h1>
 
+<%= render 'shared/error_messages', record: @link %>
+
 <%= form_with(model: [@gig, @gig.links.build], class: "flex flex-col items-end") do |form| %>
-  <% if @link.present? && @link.errors.any? %>
-    <ul class="w-full">
-      <% @link.errors[:url].each do |message| %>
-        <li class="text-xs text-red-600">Link <%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
   <%= form.text_field :url, class: "w-full py-0 px-1" %>
-
   <%= submit_tag "Add link", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
 <% end %>

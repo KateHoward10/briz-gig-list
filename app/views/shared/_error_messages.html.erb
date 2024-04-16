@@ -1,0 +1,10 @@
+<% if record.present? && record.errors.any? %>
+  <ul>
+    <% record.errors.full_messages.each do |message| %>
+      <li class="flex items-center text-sm text-red-600">
+        <%= heroicon "exclamation-circle", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
+        <%= message %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
