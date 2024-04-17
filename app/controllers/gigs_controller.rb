@@ -15,6 +15,7 @@ class GigsController < ApplicationController
   def show
     @posts = Post.where(gig_id: params[:id])
     @post = Post.new
+    @parent_post = params[:parent_id].present? ? Post.find(params[:parent_id]) : nil
 
     @links = Link.where(gig_id: params[:id])
     @link = Link.new
@@ -38,6 +39,8 @@ class GigsController < ApplicationController
     @gig.user = current_user
 
     if @gig.save
+      action = Action.new({ user_id: current_user.id, gig_id: @gig.id, kind: "gig" })
+      action.save
       redirect_to gig_path(@gig.id)
     else
       render :new, status: :unprocessable_entity

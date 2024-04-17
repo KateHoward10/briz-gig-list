@@ -1,0 +1,16 @@
+<li class="mb-3">
+  <%= link_to "?parent_id=#{post.id}#reply", class: "flex flex-col items-#{is_own ? 'end' : 'start'}" do %>
+    <% if post.is_reply? %>
+      <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
+    <% end %>
+    <div class="p-2 rounded rounded-<%= is_own ? 'br' : 'bl' %>-none bg-<%= is_own ? 'blue' : 'gray' %>-200">
+      <% unless is_own %>
+        <div class="text-xs flex items-center">
+          <%= render 'layouts/user', user: post.user %>
+        </div>
+      <% end %>
+      <p class="text-sm"><%= post.text %></p>
+    </div>
+    <p class="text-xs italic"><%= format_datetime(post.created_at) %></p>
+  <% end %>
+</li>

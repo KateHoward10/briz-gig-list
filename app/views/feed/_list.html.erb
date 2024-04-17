@@ -22,7 +22,7 @@
                 <% end %>
                 <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "font-semibold text-blue-700 hover:underline" %>
                 <% if action.kind == "post" && action.text.present? %>
-                  <p class="truncate italic text-sm"><%= action.text %></p>
+                  <p class="line-clamp-1 italic text-sm"><%= action.text %></p>
                 <% end %>
               </div>
             </div>

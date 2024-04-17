@@ -1,0 +1,7 @@
+<% if posts.any? %>
+  <ul class="my-6 p-2 border">
+    <% posts.each do |post| %>
+      <%= render 'posts/post', post: post, is_own: post.user_id == current_user.id %>
+    <% end %>
+  </ul>
+<% end %>
