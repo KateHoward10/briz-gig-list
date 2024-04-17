@@ -1,9 +1,9 @@
 <li class="mb-3">
-  <%= link_to "?parent_id=#{post.id}#reply", class: "flex flex-col items-#{is_own ? 'end' : 'start'}" do %>
+  <%= link_to "?parent_id=#{post.id}#reply", class: "flex flex-col #{is_own ? 'items-end' : 'items-start'}" do %>
     <% if post.is_reply? %>
       <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
     <% end %>
-    <div class="p-2 rounded rounded-<%= is_own ? 'br' : 'bl' %>-none bg-<%= is_own ? 'blue' : 'gray' %>-200">
+    <div class="p-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> <%= is_own ? 'bg-blue-200' : 'bg-gray-200' %>">
       <% unless is_own %>
         <div class="text-xs flex items-center">
           <%= render 'layouts/user', user: post.user %>
