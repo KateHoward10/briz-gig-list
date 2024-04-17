@@ -9,32 +9,24 @@
   <%= render 'shared/error_messages', record: gig %>
 
   <div class="mb-3">
-    <%= form.label :summary do %>
-      Summary*
-    <% end %>
+    <%= form.label :summary, "Summary*" %>
     <%= form.text_field :summary, required: true, class: "w-full" %>
   </div>
 
   <div class="mb-3 flex justify-between">
     <div>
-      <%= form.label :start_date do %>
-        Start date*
-      <% end %>
+      <%= form.label :start_date, "Start date*" %>
       <%= form.date_field :start_date, required: true %>
     </div>
 
     <div>
-      <%= form.label :end_date do %>
-        End date (optional)
-      <% end %>
+      <%= form.label :end_date, "End date (optional)" %>
       <%= form.date_field :end_date %>
     </div>
   </div>
 
   <div class="mb-3">
-    <%= form.label :location do %>
-      Location*
-    <% end %>
+    <%= form.label :location, "Location*" %>
     <%= form.text_field :location, required: true, class: "w-full", "data-places-target": "field" %>
   </div>
 

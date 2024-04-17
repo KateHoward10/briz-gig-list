@@ -297,7 +297,6 @@ DEPENDENCIES
   heroicon
   importmap-rails
   jbuilder
-  nokogiri
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pg (~> 1.1)
@@ -309,7 +308,6 @@ DEPENDENCIES
   tailwindcss-rails
   turbo-rails
   tzinfo-data
-  uri
   view_component
   web-console
 
