@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
     token.refresh_token = refresh_token if refresh_token.present?
     token.save
 
-    redirect_to feed_path
+    redirect_to root_path
   end
 
   def logout
     log_out
-    redirect_to root_path
+    redirect_to login_path
   end
 end
