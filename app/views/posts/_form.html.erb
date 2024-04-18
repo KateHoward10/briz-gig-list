@@ -10,7 +10,7 @@
 
 <%= form_with(model: [gig, gig.posts.build], class: "flex flex-col items-end") do |form| %>
   <%= form.hidden_field :parent_id, value: params[:parent_id] %>
-  <%= form.text_area :text, value: post.text, class: "w-full", required: true, maxlength: 512, autofocus: true %>
+  <%= form.text_area :text, value: post.text, class: "w-full", required: true, maxlength: 512 %>
 
   <%= button_tag type: "submit", class: "flex items-center border border-2 cursor-pointer rounded py-1 px-2 mt-1 ml-auto font-semibold text-sm hover:bg-gray-200" do %>
     <%= heroicon "paper-airplane", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>

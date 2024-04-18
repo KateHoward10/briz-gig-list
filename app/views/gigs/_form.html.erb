@@ -13,17 +13,17 @@
     <%= form.text_field :summary, required: true, class: "w-full" %>
   </div>
 
-  <div class="mb-3 flex justify-between">
+  <fieldset class="mb-3 flex justify-between">
     <div>
-      <%= form.label :start_date, "Start date*" %>
+      <%= form.label :start_date, "Start*" %>
       <%= form.date_field :start_date, required: true %>
     </div>
 
     <div>
-      <%= form.label :end_date, "End date (optional)" %>
+      <%= form.label :end_date, "End (optional)" %>
       <%= form.date_field :end_date %>
     </div>
-  </div>
+  </fieldset>
 
   <div class="mb-3">
     <%= form.label :location, "Location*" %>

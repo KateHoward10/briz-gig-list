@@ -13,17 +13,14 @@ class GigsController < ApplicationController
   end
 
   def show
-    @posts = Post.where(gig_id: params[:id])
     @post = Post.new
     @parent_post = params[:parent_id].present? ? Post.find(params[:parent_id]) : nil
 
-    @links = Link.where(gig_id: params[:id])
     @link = Link.new
 
-    responses = Response.where(gig_id: params[:id])
-    @going = responses.where(status: "Going").collect{ |x| x.user }
-    @interested = responses.where(status: "Interested").collect{ |x| x.user }
-    @response = responses.find_by(user_id: current_user.id).presence || Response.new
+    @going = @gig.responses.where(status: "Going").collect{ |x| x.user }
+    @interested = @gig.responses.where(status: "Interested").collect{ |x| x.user }
+    @response = @gig.responses.find_by(user_id: current_user.id).presence || Response.new
 
     @clashes = Gig.where.not(id: @gig.id)
                   .where("start_date <= ?", @gig.end_date)

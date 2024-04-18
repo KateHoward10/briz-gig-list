@@ -6,16 +6,8 @@
   model: [@gig, @gig.links.build],
   data: { controller: "link-form" }
 ) do |form| %>
-  <div class="mb-3">
-    <%= form.label :url, "URL*", class: "text-sm" %>
-    <%= form.text_field :url, "data-link-form-target": "url", "data-action": "input->link-form#handleURL", class: "w-full py-0 px-1" %>
-    <div data-link-form-target="status" class="text-sm font-semibold text-blue-600"></div>
-  </div>
 
-  <div>
-    <%= form.label :text, class: "text-sm" %>
-    <%= form.text_field :text, "data-link-form-target": "text", class: "w-full py-0 px-1 disabled:bg-gray-200" %>
-  </div>
+  <%= render 'form_fields', form: form %>
 
   <div class="flex justify-end">
     <%= submit_tag "Save", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>

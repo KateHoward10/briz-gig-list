@@ -31,11 +31,11 @@
   </div>
 </div>
 
-<%= render 'link_list', links: @links %>
+<%= render 'link_list', links: @gig.links %>
 
 <%= render 'clash_list', clashes: @clashes, gig: @gig %>
 
-<%= render 'posts/list', posts: @posts %>
+<%= render 'posts/list', posts: @gig.posts %>
 
 <div class="my-4">
   <%= render 'posts/form', post: @post, gig: @gig, parent_post: @parent_post %>
