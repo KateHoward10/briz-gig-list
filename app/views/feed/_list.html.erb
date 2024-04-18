@@ -13,7 +13,7 @@
                   <% if action.is_reply? %>
                     <%= " replied to " %>
                     <% if action.reply_to.id == current_user.id %>
-                      you
+                      <%= action.user_id == current_user.id ? "yourself" : "you" %>
                     <% elsif action.reply_to.id == action.user_id %>
                       themselves
                     <% else %>
