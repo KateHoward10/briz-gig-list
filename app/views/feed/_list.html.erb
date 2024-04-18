@@ -4,7 +4,7 @@
     <div class="mb-10">
       <% actions.each do |action| %>
         <% if action.class.name == "Gig" || action.gig.present? %>
-          <div class="flex justify-between mb-3">
+          <div class="flex justify-between mb-4">
             <div class="max-w-[80VW] flex">
               <%= image_tag action.user.image, class: "rounded-full h-5 w-5 mr-1" %>
               <div class="text-sm">
@@ -29,7 +29,7 @@
                   <%= action.status == "Interested" ? " in " : " to " %>
                 <% elsif action.class.name == "Gig" %>
                   <%= " added " %>
-                <% elsif action.class.name == "link" %>
+                <% elsif action.class.name == "Link" %>
                   <%= " added a link to " %>
                 <% end %>
                 <%= link_to gig_path(action.class.name == "Gig" ? action.id : action.gig_id), class: "font-semibold text-blue-700 hover:underline" do %>
@@ -37,6 +37,10 @@
                 <% end %>
                 <% if action.class.name == "Post" && action.text.present? %>
                   <p class="line-clamp-1 italic"><%= action.text %></p>
+                <% elsif action.class.name == "Link" %>
+                  <p class="max-w-[70vw] truncate italic">
+                    <%= render 'layouts/external_link', link: action.url, label: action.text.presence || action.url %>
+                  </p>
                 <% end %>
               </div>
             </div>
