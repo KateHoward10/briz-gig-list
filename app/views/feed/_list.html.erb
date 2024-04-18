@@ -7,10 +7,14 @@
           <div class="flex justify-between mb-3">
             <div class="max-w-[80VW] flex">
               <%= image_tag action.user.image, class: "rounded-full h-5 w-5 mr-1" %>
-              <div class="text-xs sm:text-sm mt-1 sm:mt-0">
+              <div class="text-sm">
                 <%= action.user.id == current_user.id ? "You" : action.user.name %>
                 <% if action.class.name == "Post" %>
-                  <%= " posted in" %>
+                  <% if action.is_reply? %>
+                    <span> replied to <%= action.reply_to %> in </span>
+                  <% else %>
+                    <%= " posted in " %>
+                  <% end %>
                 <% elsif action.class.name == "Response" %>
                   <%= action.user.id == current_user.id ? "are" : "is" %>
                   <%= action.status.downcase %>
@@ -24,7 +28,7 @@
                   <%= action.class.name == "Gig" && action.summary.present? ? action.summary : action.gig.summary %>
                 <% end %>
                 <% if action.class.name == "Post" && action.text.present? %>
-                  <p class="line-clamp-1 italic text-sm"><%= action.text %></p>
+                  <p class="line-clamp-1 italic"><%= action.text %></p>
                 <% end %>
               </div>
             </div>

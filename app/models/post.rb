@@ -9,4 +9,8 @@ class Post < ApplicationRecord
   def is_reply?
     parent_id.present?
   end
+
+  def reply_to
+    parent.user.name if is_reply? && parent.user.present?
+  end
 end
