@@ -11,7 +11,15 @@
                 <%= action.user.id == current_user.id ? "You" : action.user.name %>
                 <% if action.class.name == "Post" %>
                   <% if action.is_reply? %>
-                    <span> replied to <%= action.reply_to %> in </span>
+                    <%= " replied to " %>
+                    <% if action.reply_to.id == current_user.id %>
+                      you
+                    <% elsif action.reply_to.id == action.user_id %>
+                      themselves
+                    <% else %>
+                      <%= action.reply_to.name %>
+                    <% end %>
+                    <%= " in " %>
                   <% else %>
                     <%= " posted in " %>
                   <% end %>

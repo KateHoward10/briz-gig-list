@@ -11,6 +11,6 @@ class Post < ApplicationRecord
   end
 
   def reply_to
-    parent.user.name if is_reply? && parent.user.present?
+    parent.user if is_reply? && parent.user.present?
   end
 end
