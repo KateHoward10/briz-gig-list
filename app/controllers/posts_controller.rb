@@ -7,13 +7,6 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-      action = Action.new({
-        user_id: current_user.id,
-        gig_id: @post.gig_id,
-        kind: "post",
-        text: @post.text
-      })
-      action.save
       redirect_to gig_path(@post.gig_id)
     end
   end

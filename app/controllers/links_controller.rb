@@ -9,12 +9,7 @@ class LinksController < ApplicationController
     @link = @gig.links.create(link_params)
     @link.user = current_user
 
-    if @link.valid?
-      @link.save
-
-      action = Action.new({ user_id: current_user.id, gig_id: @gig.id, kind: "link" })
-      action.save
-
+    if @link.save
       redirect_to gig_path(@gig.id)
     else
       render :new, status: :unprocessable_entity

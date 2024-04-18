@@ -1,6 +1,9 @@
 class ProfileController < ApplicationController
   def index
-    @actions = Action.where(user_id: current_user.id).order(updated_at: :desc).limit(20)
+    @gigs = Gig.where(user_id: current_user.id).order(created_at: :desc).limit(3).to_a
+    @responses = Response.where(user_id: current_user.id).order(created_at: :desc).limit(3).to_a
+    @posts = Post.where(user_id: current_user.id).order(created_at: :desc).limit(3).to_a
+    @actions = (@gigs + @responses + @posts).sort! { |a, b| b.created_at <=> a.created_at }
     @actions_by_date = @actions.group_by {|a| a.updated_at.to_date }
   end
 end

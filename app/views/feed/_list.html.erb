@@ -3,25 +3,27 @@
     <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
     <div class="mb-10">
       <% actions.each do |action| %>
-        <% if action.gig_id %>
+        <% if action.class.name == "Gig" || action.gig.present? %>
           <div class="flex justify-between mb-3">
             <div class="max-w-[80VW] flex">
               <%= image_tag action.user.image, class: "rounded-full h-5 w-5 mr-1" %>
               <div class="text-xs sm:text-sm mt-1 sm:mt-0">
                 <%= action.user.id == current_user.id ? "You" : action.user.name %>
-                <% if action.kind == "post" %>
+                <% if action.class.name == "Post" %>
                   <%= " posted in" %>
-                <% elsif action.kind == "response" %>
+                <% elsif action.class.name == "Response" %>
                   <%= action.user.id == current_user.id ? "are" : "is" %>
                   <%= action.status.downcase %>
                   <%= action.status == "Interested" ? " in " : " to " %>
-                <% elsif action.kind == "gig" %>
+                <% elsif action.class.name == "Gig" %>
                   <%= " added " %>
-                <% elsif action.kind == "link" %>
+                <% elsif action.class.name == "link" %>
                   <%= " added a link to " %>
                 <% end %>
-                <%= link_to action.gig.present? ? action.gig.summary : gig_path(action.gig_id), gig_path(action.gig_id), class: "font-semibold text-blue-700 hover:underline" %>
-                <% if action.kind == "post" && action.text.present? %>
+                <%= link_to gig_path(action.class.name == "Gig" ? action.id : action.gig_id), class: "font-semibold text-blue-700 hover:underline" do %>
+                  <%= action.class.name == "Gig" && action.summary.present? ? action.summary : action.gig.summary %>
+                <% end %>
+                <% if action.class.name == "Post" && action.text.present? %>
                   <p class="line-clamp-1 italic text-sm"><%= action.text %></p>
                 <% end %>
               </div>

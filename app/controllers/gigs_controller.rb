@@ -39,8 +39,6 @@ class GigsController < ApplicationController
     @gig.user = current_user
 
     if @gig.save
-      action = Action.new({ user_id: current_user.id, gig_id: @gig.id, kind: "gig" })
-      action.save
       redirect_to gig_path(@gig.id)
     else
       render :new, status: :unprocessable_entity
