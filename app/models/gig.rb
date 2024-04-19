@@ -3,6 +3,7 @@ class Gig < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :links, dependent: :destroy
+  accepts_nested_attributes_for :links, reject_if: proc { |attributes| attributes["url"].blank? }
 
   validates :summary, :start_date, :location, presence: true
   validate :end_after_start

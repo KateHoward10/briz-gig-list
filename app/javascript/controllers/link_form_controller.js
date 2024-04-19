@@ -4,15 +4,26 @@ import mql from '@microlink/mql'
 export default class extends Controller {
   static targets = ["url", "status", "text"]
 
+  reset() {
+    this.statusTarget.textContent = "";
+    this.textTarget.disabled = false;
+  }
+
   async handleURL() {
-    if (this.urlTarget.value === "") return;
+    if (this.urlTarget.value === "") {
+      this.setFormData("");
+      return this.reset();
+    }
     this.statusTarget.textContent = "Checking URL...";
     this.textTarget.disabled = true;
-    const { status, data } = await mql(this.urlTarget.value);
-    if (status == "success") {
-      this.setFormData(data?.title);
-      this.statusTarget.textContent = "";
-      this.textTarget.disabled = false;
+    try {
+      mql(this.urlTarget.value).then(({ status, data }) => {
+        if (status == "success") {
+          this.setFormData(data?.title);
+        }
+      }).then(() => this.reset());
+    } catch (error) {
+      this.reset();
     }
   }
 
