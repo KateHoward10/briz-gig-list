@@ -6,6 +6,6 @@ class ProfileController < ApplicationController
                  .or(Post.where(parent: { user_id: current_user.id }))
                  .order(created_at: :desc).limit(3).to_a
     @actions = (@gigs + @responses + @posts).sort! { |a, b| b.created_at <=> a.created_at }
-    @actions_by_date = @actions.group_by {|a| a.updated_at.to_date }
+    @actions_by_date = @actions.group_by { |a| a.created_at.to_date }
   end
 end

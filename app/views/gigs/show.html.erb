@@ -35,7 +35,7 @@
 
 <%= render 'clash_list', clashes: @clashes, gig: @gig %>
 
-<%= render 'posts/list', posts: @gig.posts %>
+<%= render 'posts/list', posts_by_date: @posts_by_date %>
 
 <div class="my-4">
   <%= render 'posts/form', post: @post, gig: @gig, parent_post: @parent_post %>

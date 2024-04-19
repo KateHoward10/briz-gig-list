@@ -1,7 +1,12 @@
-<% if posts.any? %>
-  <ul class="my-6 p-2 border">
-    <% posts.each do |post| %>
-      <%= render 'posts/post', post: post, is_own: post.user_id == current_user.id %>
+<% if posts_by_date.any? %>
+  <div class="my-6 p-2 border">
+    <% posts_by_date.each do |date, posts| %>
+      <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
+      <ul class="mb-10">
+        <% posts.each do |post| %>
+          <%= render 'posts/post', post: post, is_own: post.user_id == current_user.id %>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
+  </div>
 <% end %>
