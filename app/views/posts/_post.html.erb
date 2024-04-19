@@ -1,4 +1,4 @@
-<li class="mb-3">
+<li class="mt-2">
   <%= link_to "?parent_id=#{post.id}#reply", class: "flex flex-col #{is_own ? 'items-end' : 'items-start'}" do %>
     <% if post.is_reply? %>
       <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
