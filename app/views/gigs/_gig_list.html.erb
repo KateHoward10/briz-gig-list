@@ -3,26 +3,7 @@
     <%= render 'layouts/date_divider', title: month %>
     <div class="mb-10">
       <% gigs.each do |gig| %>
-        <div class="mb-4 flex">
-          <div class="flex items-center mr-2">
-            <%= render 'gigs/date_box', date: gig.start_date, diff_months: gig.multimonth? %>
-            <% if gig.end_date.present? && gig.end_date != gig.start_date %>
-                <%= heroicon "arrow-right", variant: :mini, options: { class: "w-4 h-4" } %>
-              <%= render 'gigs/date_box', date: gig.end_date, diff_months: gig.multimonth?  %>
-            <% end %>
-          </div>
-          <div class="sm:w-full sm:flex items-center justify-between">
-            <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700" %>
-            <% unless local_assigns[:hide_venue] %>
-              <%= link_to venue_path(gig.location) do %>
-                <span class="text-xs sm:text-sm flex items-center text-nowrap hover:text-blue-700">
-                  <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
-                  <%= gig.location.split(", ")[0] %>
-                </span>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+        <%= render 'gig_list_item', gig: gig, going: gig.responses.where(status: "Going"), interested: gig.responses.where(status: "Interested") %>
       <% end %>
     </div>
   <% end %>

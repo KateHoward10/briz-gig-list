@@ -19,9 +19,11 @@ class GigsController < ApplicationController
 
     @link = Link.new
 
-    @going = @gig.responses.where(status: "Going").collect{ |x| x.user }
-    @interested = @gig.responses.where(status: "Interested").collect{ |x| x.user }
+    @going_list = @gig.responses.where(status: "Going").where.not(user_id: current_user.id).collect{ |x| x.user }
+    @interested_list = @gig.responses.where(status: "Interested").where.not(user_id: current_user.id).collect{ |x| x.user }
     @response = @gig.responses.find_by(user_id: current_user.id).presence || Response.new
+    @going = @response.status == "Going" ? @going_list.unshift(current_user) : @going_list
+    @interested = @response.status == "Interested" ? @interested_list.unshift(current_user) : @interested_list
 
     @clashes = Gig.where.not(id: @gig.id)
                   .where("start_date <= ?", @gig.end_date)
