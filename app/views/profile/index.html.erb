@@ -7,3 +7,4 @@
 <% end %>
 
 <%= render 'feed/list', actions_by_date: @actions_by_date %>
+<%= paginate(@actions_by_date) %>
