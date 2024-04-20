@@ -1,10 +1,10 @@
 <div class="mb-3">
   <%= form.label :url, "URL", class: "text-sm" %>
-  <%= form.text_field :url, "data-link-form-target": "url", "data-action": "input->link-form#handleURL", class: "w-full p-1" %>
+  <%= form.text_field :url, "data-link-form-target": "url", "data-action": "input->link-form#handleURL", class: "w-full p-1 bg-slate-900" %>
   <div data-link-form-target="status" class="text-sm font-semibold text-blue-600"></div>
 </div>
 
 <div class="mb-3">
   <%= form.label :text, "Title", class: "text-sm" %>
-  <%= form.text_field :text, "data-link-form-target": "text", class: "w-full p-1 disabled:bg-gray-200" %>
+  <%= form.text_field :text, "data-link-form-target": "text", class: "w-full p-1 dark:bg-slate-900 disabled:bg-gray-200 dark:disabled:bg-slate-700" %>
 </div>

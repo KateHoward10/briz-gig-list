@@ -5,7 +5,7 @@
       <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
       <%= format_gig_dates(@gig) %>
     </p>
-    <%= link_to venue_path(@gig.location), class: "text-xs sm:text-sm mb-3 flex items-center hover:text-blue-700"  do %>
+    <%= link_to venue_path(@gig.location), class: "text-xs sm:text-sm mb-3 flex items-center hover:text-blue-700 dark:hover:text-blue-400"  do %>
       <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
       <%= @gig.location %>
     <% end %>
@@ -15,7 +15,7 @@
 
   <div class="flex flex-col items-end ml-auto">
     <% if @gig.user_id == current_user.id %>
-      <%= link_to edit_gig_path(@gig.id), class: "flex items-center font-semibold text-blue-700 hover:underline" do %>
+      <%= link_to edit_gig_path(@gig.id), class: "flex items-center font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= heroicon "pencil", variant: :outline, options: { class: "w-4 h-4 mr-1" } %>
         Edit gig
       <% end %>
@@ -25,8 +25,8 @@
 
     <%= form_with(model: @response, class: "flex items-center my-2") do |form| %>
       <%= form.hidden_field :gig_id, value: @gig.id %>
-      <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded" %>
-      <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200" %>
+      <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded dark:bg-slate-900" %>
+      <%= form.submit @response.id.present? ? "Update" : "Save", class: "border border-2 dark:border-gray-700 cursor-pointer rounded px-2 py-1 ml-auto text-sm font-semibold hover:bg-gray-200 dark:hover:bg-gray-700" %>
     <% end %>
   </div>
 </div>

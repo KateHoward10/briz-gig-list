@@ -32,7 +32,7 @@
                 <% elsif action.class.name == "Link" %>
                   <%= " added a link to " %>
                 <% end %>
-                <%= link_to gig_path(action.class.name == "Gig" ? action.id : action.gig_id), class: "font-semibold text-blue-700 hover:underline" do %>
+                <%= link_to gig_path(action.class.name == "Gig" ? action.id : action.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
                   <%= action.class.name == "Gig" && action.summary.present? ? action.summary : action.gig.summary %>
                 <% end %>
                 <% if action.class.name == "Post" && action.text.present? %>

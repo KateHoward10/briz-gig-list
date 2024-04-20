@@ -1,9 +1,9 @@
 <div class="flex justify-between items-center mb-6">
   <div>
     <h1 class="text-xl font-bold">Upcoming gigs</h1>
-    <%= link_to "Past gigs", gigs_past_path, class: "text-sm font-semibold text-blue-700 hover:underline" %>
+    <%= link_to "Past gigs", gigs_past_path, class: "text-sm font-semibold text-blue-700 dark:text-blue-400 hover:underline" %>
   </div>
-  <%= link_to new_gig_path, class: "flex items-center font-semibold text-blue-700 hover:underline" do %>
+  <%= link_to new_gig_path, class: "flex items-center font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
     <%= heroicon "plus", options: { class: "w-4 h-4" } %>
     Add gig
   <% end %>

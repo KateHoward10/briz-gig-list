@@ -3,7 +3,7 @@
     <%= render 'layouts/date_divider', title: month %>
     <div class="mb-10">
       <% gigs.each do |gig| %>
-        <%= render 'gig_list_item', gig: gig, going: gig.responses.where(status: "Going"), interested: gig.responses.where(status: "Interested") %>
+        <%= render 'gigs/gig_list_item', gig: gig, going: gig.responses.where(status: "Going"), interested: gig.responses.where(status: "Interested"), hide_venue: local_assigns[:hide_venue] %>
       <% end %>
     </div>
   <% end %>

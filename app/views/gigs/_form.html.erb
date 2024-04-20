@@ -10,29 +10,29 @@
 
   <div class="mb-3">
     <%= form.label :summary, "Summary*" %>
-    <%= form.text_field :summary, required: true, class: "w-full p-1" %>
+    <%= form.text_field :summary, required: true, class: "w-full p-1 dark:bg-slate-900" %>
   </div>
 
   <fieldset class="mb-3 flex justify-between">
     <div>
       <%= form.label :start_date, "Start*" %>
-      <%= form.date_field :start_date, required: true, class: "p-1" %>
+      <%= form.date_field :start_date, required: true, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]" %>
     </div>
 
     <div>
       <%= form.label :end_date, "End (optional)" %>
-      <%= form.date_field :end_date, class: "p-1" %>
+      <%= form.date_field :end_date, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]" %>
     </div>
   </fieldset>
 
   <div class="mb-3">
     <%= form.label :location, "Location*" %>
-    <%= form.text_field :location, required: true, class: "w-full p-1", "data-places-target": "field" %>
+    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-places-target": "field" %>
   </div>
 
   <% unless @gig.id.present? %>
     <%= form.fields_for :links, @gig.links.build do |link_form| %>
-      <div class="rounded border p-2 my-4" %>
+      <div class="rounded border dark:border-gray-700 p-2 my-4" %>
         <h3 class="font-semibold mb-2">Include a link (optional)</h3>
         <%= link_form.hidden_field :user_id, value: current_user.id %>
         <%= render 'links/form_fields', form: link_form %>
@@ -41,6 +41,6 @@
   <% end %>
 
   <div class="flex justify-end">
-    <%= form.submit "Save", class: "border border-2 cursor-pointer rounded px-2 font-semibold hover:bg-gray-200" %>
+    <%= form.submit "Save", class: "border border-2 dark:border-gray-700 cursor-pointer rounded text-base px-2 font-semibold hover:bg-gray-200 dark:hover:bg-gray-700" %>
   </div>
 <% end %>
