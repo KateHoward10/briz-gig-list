@@ -28,9 +28,9 @@
   </div>
   <div class="ml-auto sm:hidden">
     <% if going.where(user_id: current_user.id).present? %>
-      <%= heroicon "check-circle", variant: :mini, options: { class: "w-5 h-5 text-green-600" } %>
+      <%= heroicon "check-circle", variant: :mini, options: { class: "w-6 h-6 text-green-600" } %>
     <% elsif interested.where(user_id: current_user.id).present? %>
-      <%= heroicon "star", variant: :mini, options: { class: "w-5 h-5 text-yellow-600" } %>
+      <%= heroicon "star", variant: :mini, options: { class: "w-6 h-6 text-yellow-600" } %>
     <% end %>
   </div>
 </div>

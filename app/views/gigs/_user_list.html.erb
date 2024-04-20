@@ -1,5 +1,5 @@
 <% if users.any? %>
-  <p class="text-xs flex items-center mb-1">
+  <p class="text-xs flex flex-wrap items-center mb-1">
     <% users.each_with_index do |user, index| %>
       <% if users.length > 1 && index == users.length - 1 %>
         <span class="mx-1">&</span>

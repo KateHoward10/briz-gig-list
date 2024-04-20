@@ -20,7 +20,7 @@
     <% if current_user.present? %>
       <%= render 'layouts/nav' %>
     <% end %>
-    <main class="container mx-auto my-12 px-5">
+    <main class="mx-auto lg:mx-32 xl:max-w-screen-lg xl:mx-auto my-12 px-5">
       <%= render 'shared/flash_messages' %>
       <%= yield %>
     </main>
