@@ -1,0 +1,4 @@
+<%= form_with(model: response, data: { controller: "response-form", "response-form-target": "form" }, class: "flex items-center my-2") do |form| %>
+  <%= form.hidden_field :gig_id, value: gig_id %>
+  <%= form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded dark:bg-slate-900", "data-action": "change->response-form#handleChange" %>
+<% end %>

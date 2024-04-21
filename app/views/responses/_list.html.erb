@@ -2,9 +2,9 @@
   <div class="flex items-center">
     <% if responses.where(user_id: current_user.id).present? %>
       <% if status == "going" %>
-        <%= heroicon "check-circle", variant: :mini, options: { class: "w-5 h-5 text-green-600 -mr-1" } %>
+        <%= heroicon "check-circle", variant: :mini, options: { class: "w-5 h-5 text-green-600" } %>
       <% else %>
-        <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 text-yellow-600 -mr-1" } %>
+        <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 text-yellow-600" } %>
       <% end %>
     <% end %>
     <% responses.where.not(user_id: current_user.id).each do |response| %>
