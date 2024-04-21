@@ -3,50 +3,7 @@
     <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
     <div class="mb-10">
       <% actions.each do |action| %>
-        <% if action.class.name == "Gig" || action.gig.present? %>
-          <div class="flex justify-between mb-4">
-            <div class="max-w-[80VW] flex">
-              <%= image_tag action.user.image, class: "rounded-full h-5 w-5 mr-1" %>
-              <div class="text-sm">
-                <%= action.user.id == current_user.id ? "You" : action.user.name %>
-                <% if action.class.name == "Post" %>
-                  <% if action.is_reply? %>
-                    <%= " replied to " %>
-                    <% if action.reply_to.id == current_user.id %>
-                      <%= action.user_id == current_user.id ? "yourself" : "you" %>
-                    <% elsif action.reply_to.id == action.user_id %>
-                      themselves
-                    <% else %>
-                      <%= action.reply_to.name %>
-                    <% end %>
-                    <%= " in " %>
-                  <% else %>
-                    <%= " posted in " %>
-                  <% end %>
-                <% elsif action.class.name == "Response" %>
-                  <%= action.user.id == current_user.id ? "are" : "is" %>
-                  <%= action.status.downcase %>
-                  <%= action.status == "Interested" ? " in " : " to " %>
-                <% elsif action.class.name == "Gig" %>
-                  <%= " added " %>
-                <% elsif action.class.name == "Link" %>
-                  <%= " added a link to " %>
-                <% end %>
-                <%= link_to gig_path(action.class.name == "Gig" ? action.id : action.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
-                  <%= action.class.name == "Gig" && action.summary.present? ? action.summary : action.gig.summary %>
-                <% end %>
-                <% if action.class.name == "Post" && action.text.present? %>
-                  <p class="line-clamp-1 italic"><%= action.text %></p>
-                <% elsif action.class.name == "Link" %>
-                  <p class="max-w-[70vw] truncate italic">
-                    <%= render 'layouts/external_link', link: action.url, label: action.text.presence || action.url %>
-                  </p>
-                <% end %>
-              </div>
-            </div>
-            <span class="text-xs italic text-right"><%= format_time(action.created_at) %></span>
-          </div>
-        <% end %>
+        <%= render 'feed/list_item', item: action %>
       <% end %>
     </div>
   <% end %>
