@@ -7,9 +7,11 @@
         <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 text-yellow-600" } %>
       <% end %>
     <% end %>
-    <% responses.where.not(user_id: current_user.id).each_with_index do |response, index| %>
-      <%= image_tag response.user.image, class: "rounded-full h-4 w-4 #{index > 0 ? "-ml-1" : ""}" %>
-    <% end %>
+    <div class="flex items-center flex-row-reverse">
+      <% responses.where.not(user_id: current_user.id).each_with_index do |response, index| %>
+        <%= image_tag response.user.image, class: "rounded-full h-4 w-4 #{index > 0 && index < responses.count - 1 ? "-ml-1" : ""}" %>
+      <% end %>
+    </div>
     <span class="text-xs ml-1">
       <% if responses.where(user_id: current_user.id).present? %>
         You
