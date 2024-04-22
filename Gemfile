@@ -55,7 +55,6 @@ gem "heroicon"
 
 gem "kaminari"
 
-gem "sassc-rails"
 gem "simple_calendar"
 
 group :development, :test do
