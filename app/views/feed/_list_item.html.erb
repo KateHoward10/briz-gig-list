@@ -1,7 +1,9 @@
 <% if item.class.name == "Gig" || item.gig.present? %>
   <div class="flex justify-between mb-4">
     <div class="max-w-[80VW] flex">
-      <%= image_tag item.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+      <%= link_to item.user.id == current_user.id ? profile_path : "/profiles/#{item.user.id}" do %>
+        <%= image_tag item.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+      <% end %>
       <div class="text-sm">
         <%= item.user.id == current_user.id ? "You" : item.user.name %>
         <% if item.class.name == "Post" %>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :venues, only: [:index, :show]
 
   get "profile", to: "profile#index"
+  get "profiles/:id", to: "profile#show"
 
   root "feed#index"
   get "login", to: "login#index"
