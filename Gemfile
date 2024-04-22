@@ -53,7 +53,10 @@ gem "omniauth-rails_csrf_protection"
 gem "view_component"
 gem "heroicon"
 
-gem 'kaminari'
+gem "kaminari"
+
+gem "sassc-rails"
+gem "simple_calendar"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

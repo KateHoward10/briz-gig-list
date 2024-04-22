@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :responses
   resources :venues, only: [:index, :show]
 
+  get "calendar", to: "calendar#index"
   get "profile", to: "profile#index"
 
   root "feed#index"
