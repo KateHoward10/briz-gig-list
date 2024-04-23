@@ -1,10 +1,8 @@
 <%= month_calendar(events: @gigs, attribute: :start_date, end_attribute: :end_date) do |date, gigs| %>
-  <div>
-    <span class="text-xs h-5 w-5 mb-auto mx-auto flex items-center justify-center rounded-full <%= date == Date.today ? "bg-blue-500" : "" %>">
-      <%= date.strftime("%e") %>
-    </span>
-    <% gigs.each do |gig| %>
-      <%= link_to gig.summary, gig_path(gig.id), class: "mx-1 text-sm line-clamp-1 font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
-    <% end %>
-  </div>
+  <span class="text-xs h-5 w-5 mx-auto flex items-center justify-center rounded-full <%= date == Date.today ? "bg-blue-500" : "" %>">
+    <%= date.strftime("%e") %>
+  </span>
+  <% gigs.each do |gig| %>
+    <%= link_to gig.summary, gig_path(gig.id), class: "mx-1 text-sm line-clamp-1 font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
+  <% end %>
 <% end %>
