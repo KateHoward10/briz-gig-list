@@ -11,7 +11,7 @@
     </nav>
   </div>
 
-  <table class="border w-full table-fixed">
+  <table class="border border-gray-400 dark:border-gray-600 w-full table-fixed">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
@@ -24,7 +24,7 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: "py-1 border align-top h-20#{day.strftime('%Y%m') != start_date.strftime('%Y%m') ? " bg-gray-500" : day < Date.today ? " opacity-50" : ""}" do %>
+            <%= content_tag :td, class: "py-1 border border-gray-400 dark:border-gray-600 align-top h-20#{day.strftime('%Y%m') != start_date.strftime('%Y%m') ? " bg-gray-500" : day < Date.today ? " opacity-50" : ""}" do %>
               <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
             <% end %>
           <% end %>
