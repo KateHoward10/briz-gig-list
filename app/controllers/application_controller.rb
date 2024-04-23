@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
   end
   
   def authenticate
+    if current_user.tokens.last.expired?
+      current_user.tokens.last.refresh!
+    end
     redirect_to(login_path) if current_user.nil?
   end
 end
