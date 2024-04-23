@@ -16,9 +16,13 @@
       <% if inc_self %>
         You
         <% if responses.count > 1 %>
-          <%= " & #{responses.count - 1} other#{responses.count > 2 ? "s" : ""}" %> <%= status %>
+          <%= " & #{responses.count - 1} other#{responses.count > 2 ? "s" : ""}" %> <%= status == "going" ? "went" : status %>
         <% else %>
-          <%= " are #{status}" %>
+          <% if in_past %>
+            <%= status == "going" ? " went" : " were interested" %>
+          <% else %>
+            <%= " are #{status}" %>
+          <% end %> 
         <% end %>
       <% else %>
         <%= responses.count %> <%= status %>

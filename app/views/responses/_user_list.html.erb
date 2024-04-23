@@ -10,7 +10,11 @@
       <% end %>
     <% end %>
     <span class="ml-1">
-      <%= users.length > 1 || users.first.id == current_user.id ? "are" : "is" %> <%= status %>
+      <% if in_past %>
+        <%= status == "going" ? "went" : "were interested" %>
+      <% else %>
+        <%= users.length > 1 || users.first.id == current_user.id ? "are" : "is" %> <%= status %>
+      <% end %>
     </span>
   </p>
 <% end %>

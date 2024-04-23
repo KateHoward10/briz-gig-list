@@ -9,8 +9,8 @@
       <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
       <%= @gig.location %>
     <% end %>
-    <%= render 'responses/user_list', users: @going, status: "going" %>
-    <%= render 'responses/user_list', users: @interested, status: "interested" %>
+    <%= render 'responses/user_list', users: @going, status: "going", in_past: @gig.end_date < Date.today %>
+    <%= render 'responses/user_list', users: @interested, status: "interested", in_past: @gig.end_date < Date.today %>
   </div>
 
   <div class="flex flex-col items-end ml-auto">
