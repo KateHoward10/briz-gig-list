@@ -1,6 +1,8 @@
 <div>
   <div class="text-center">
-    <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></time>
+    <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title">
+      <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+    </time>
 
     <nav class="text-sm">
       <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
@@ -22,7 +24,7 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: "py-1 border" do %>
+            <%= content_tag :td, class: "py-1 border#{day.strftime('%Y%m') != Date.today.strftime('%Y%m') ? " bg-gray-500" : day < Date.today ? " opacity-50" : ""}" do %>
               <% instance_exec(day, calendar.sorted_events_for(day), &passed_block) %>
             <% end %>
           <% end %>
