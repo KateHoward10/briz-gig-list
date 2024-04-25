@@ -3,7 +3,8 @@ module GigsHelper
     if datetime.blank?
       nil
     else
-      datetime.to_datetime.in_time_zone("London").strftime("%a %e %b")
+      year = datetime.to_datetime.in_time_zone("London").strftime("%y")
+      datetime.to_datetime.in_time_zone("London").strftime(year == Date.today().strftime("%y") ? "%a %e %b" : "%a %e %b ’%y")
     end
   end
 
