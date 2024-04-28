@@ -1,0 +1,15 @@
+<li class="mb-6 sm:w-full sm:flex items-center justify-between">
+  <div>
+    <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
+    <p class="text-xs sm:text-sm my-1 italic flex items-center">
+      <%= heroicon "calendar-days", variant: :mini, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
+      <%= format_gig_dates(gig) %>
+    </p>
+  </div>
+  <%= link_to venue_path(gig.location) do %>
+    <span class="text-xs sm:text-sm flex items-center text-nowrap hover:text-blue-700 dark:hover:text-blue-400">
+      <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
+      <%= gig.location.split(", ")[0] %>
+    </span>
+  <% end %>
+</li>
