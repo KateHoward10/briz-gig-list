@@ -6,22 +6,39 @@
   </div>
 <% end %>
 
-<% if @interested.any? %>
-  <h2 class="text-xl font-bold mb-4">Interested</h2>
-  <ul>
-    <% @interested.each do |response| %>
-      <%= render 'gig', gig: response.gig %>
-    <% end %>
-  </ul>
-<% end %>
-<%= paginate(@interested) %>
+<div
+  data-controller="tabs"
+  data-tabs-active-class="bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50"
+  data-tabs-default-tab-value="interested"
+>
+  <div class="flex gap-x-4">
+    <button id="interested" data-tabs-target="btn" data-action="click->tabs#select" class="px-4 mb-4 rounded bg-slate-100 dark:bg-slate-800 text-gray-500">
+      Interested
+    </button>
+    <button id="going" data-tabs-target="btn" data-action="click->tabs#select" class="px-4 mb-4 rounded bg-slate-100 dark:bg-slate-800 text-gray-500">
+      Going
+    </button>
+  </div>
 
-<% if @going.any? %>
-  <h2 class="text-xl font-bold mt-8 mb-4">Going</h2>
-  <ul>
-    <% @going.each do |response| %>
-      <%= render 'gig', gig: response.gig %>
+  <div data-tabs-target="tab" id="interested">
+    <% if @interested.any? %>
+      <ul>
+        <% @interested.each do |response| %>
+          <%= render 'gig', gig: response.gig %>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
-<%= paginate(@going) %>
+    <%= paginate(@interested) %>
+  </div>
+
+  <div data-tabs-target="tab" id="going">
+    <% if @going.any? %>
+      <ul>
+        <% @going.each do |response| %>
+          <%= render 'gig', gig: response.gig %>
+        <% end %>
+      </ul>
+    <% end %>
+    <%= paginate(@going) %>
+  </div>
+</div>
