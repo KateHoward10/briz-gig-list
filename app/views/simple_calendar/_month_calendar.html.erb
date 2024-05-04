@@ -1,21 +1,28 @@
 <div>
-  <div class="text-center">
-    <time datetime="<%= start_date.strftime('%Y-%m') %>" class="calendar-title uppercase">
-      <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
-    </time>
-
-    <nav class="text-sm">
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view, class: "mx-2" %>
-      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
-    </nav>
+  <div class="flex items-center gap-x-2 text-xs justify-center mb-1">
+    <%= link_to t('simple_calendar.previous', default: '< Prev'), calendar.url_for_previous_view %>
+    <form data-controller="calendar-form" data-calendar-form-target="form">
+      <input
+        type="hidden"
+        name="start_date"
+        value="<%= start_date %>"
+        data-calendar-form-target="hidden"
+      />
+      <input
+        type="month"
+        value="<%= start_date.strftime("%Y-%m") %>"
+        data-action="change->calendar-form#handleChange"
+        class="p-1 uppercase text-sm dark:bg-slate-900 dark:[color-scheme:dark]"
+      />
+    </form>
+    <%= link_to t('simple_calendar.next', default: 'Next >'), calendar.url_for_next_view %>
   </div>
 
   <table class="border border-gray-400 dark:border-gray-600 w-full table-fixed">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
-          <th class="p-2 uppercase text-sm font-semibold"><%= t('date.abbr_day_names')[day.wday] %></th>
+          <th class="py-1 uppercase text-xs font-semibold"><%= t('date.abbr_day_names')[day.wday] %></th>
         <% end %>
       </tr>
     </thead>

@@ -1,3 +1,13 @@
+<div class="flex justify-between items-start">
+  <div>
+    <h1 class="text-xl font-bold">Calendar</h1>
+  </div>
+  <%= link_to new_gig_path, class: "flex items-center font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+    <%= heroicon "plus", options: { class: "w-4 h-4" } %>
+    Add gig
+  <% end %>
+</div>
+
 <%= month_calendar(events: @gigs, attribute: :start_date, end_attribute: :end_date) do |date, gigs| %>
   <span class="text-xs h-5 w-5 mx-auto flex items-center justify-center rounded-full <%= date == Date.today ? "bg-blue-500" : "" %>">
     <%= date.strftime("%e") %>
