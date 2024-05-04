@@ -1,0 +1,22 @@
+<div class="max-w-[80VW] flex mb-2">
+  <%= image_tag items.first.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+  <div class="text-sm">
+    <% items.each_with_index do |item, index| %>
+      <% if items.length > 1 && index == items.length - 1 %>
+        <span>and</span>
+      <% end %>
+      <% if index == 0 %>
+        <%= item.user.id == current_user.id ? "You" : item.user.name %>
+        <%= item.user.id == current_user.id ? "are" : "is" %>
+      <% end %>
+      <%= item.status.downcase %>
+      <%= item.status == "Interested" ? " in " : " to " %>
+      <%= link_to gig_path(item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+        <%= item.gig.summary %>
+      <% end %>
+      <% if index < items.length - 2 %>
+        <span>,</span>
+      <% end %>
+    <% end %>    
+  </div>
+</div>

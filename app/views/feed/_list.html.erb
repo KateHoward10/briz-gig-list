@@ -5,8 +5,14 @@
       <% times.each do |(time, user_id), actions| %>
         <div class="flex justify-between">
           <div class="mb-4">
-            <% actions.each do |action| %>
-              <%= render 'feed/list_item', item: action %>
+            <% if actions.all? { |a| a.class.name == "Gig" } %>
+              <%= render 'multi_gig', items: actions %>
+            <% elsif actions.all? { |a| a.class.name == "Response" } %>
+              <%= render 'multi_response', items: actions %>
+            <% else %>
+              <% actions.each do |action| %>
+                <%= render 'feed/list_item', item: action %>
+              <% end %>
             <% end %>
           </div>
           <span class="text-xs italic text-right"><%= format_time(time) %></span>
