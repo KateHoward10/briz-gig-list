@@ -1,9 +1,16 @@
 <% if actions_by_date.any? %>
-  <% actions_by_date.each do |date, actions| %>
+  <% actions_by_date.each do |date, times| %>
     <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
     <div class="mb-10">
-      <% actions.each do |action| %>
-        <%= render 'feed/list_item', item: action %>
+      <% times.each do |(time, user_id), actions| %>
+        <div class="flex justify-between">
+          <div class="mb-4">
+            <% actions.each do |action| %>
+              <%= render 'feed/list_item', item: action %>
+            <% end %>
+          </div>
+          <span class="text-xs italic text-right"><%= format_time(time) %></span>
+        </div>
       <% end %>
     </div>
   <% end %>

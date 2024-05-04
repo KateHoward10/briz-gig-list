@@ -1,44 +1,41 @@
 <% if item.class.name == "Gig" || item.gig.present? %>
-  <div class="flex justify-between mb-4">
-    <div class="max-w-[80VW] flex">
-      <%= image_tag item.user.image, class: "rounded-full h-5 w-5 mr-1" %>
-      <div class="text-sm">
-        <%= item.user.id == current_user.id ? "You" : item.user.name %>
-        <% if item.class.name == "Post" %>
-          <% if item.is_reply? %>
-            <%= " replied to " %>
-            <% if item.reply_to.id == current_user.id %>
-              <%= item.user_id == current_user.id ? "yourself" : "you" %>
-            <% elsif item.reply_to.id == item.user_id %>
-              themselves
-            <% else %>
-              <%= item.reply_to.name %>
-            <% end %>
-            <%= " in " %>
+  <div class="max-w-[80VW] flex mb-2">
+    <%= image_tag item.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+    <div class="text-sm">
+      <%= item.user.id == current_user.id ? "You" : item.user.name %>
+      <% if item.class.name == "Post" %>
+        <% if item.is_reply? %>
+          <%= " replied to " %>
+          <% if item.reply_to.id == current_user.id %>
+            <%= item.user_id == current_user.id ? "yourself" : "you" %>
+          <% elsif item.reply_to.id == item.user_id %>
+            themselves
           <% else %>
-            <%= " posted in " %>
+            <%= item.reply_to.name %>
           <% end %>
-        <% elsif item.class.name == "Response" %>
-          <%= item.user.id == current_user.id ? "are" : "is" %>
-          <%= item.status.downcase %>
-          <%= item.status == "Interested" ? " in " : " to " %>
-        <% elsif item.class.name == "Gig" %>
-          <%= " added " %>
-        <% elsif item.class.name == "Link" %>
-          <%= " added a link to " %>
+          <%= " in " %>
+        <% else %>
+          <%= " posted in " %>
         <% end %>
-        <%= link_to gig_path(item.class.name == "Gig" ? item.id : item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
-          <%= item.class.name == "Gig" && item.summary.present? ? item.summary : item.gig.summary %>
-        <% end %>
-        <% if item.class.name == "Post" && item.text.present? %>
-          <p class="max-w-[70vw] truncate italic"><%= item.text %></p>
-        <% elsif item.class.name == "Link" %>
-          <p class="max-w-[70vw] truncate italic">
-            <%= render 'layouts/external_link', link: item.url, label: item.text.presence || item.url %>
-          </p>
-        <% end %>
-      </div>
+      <% elsif item.class.name == "Response" %>
+        <%= item.user.id == current_user.id ? "are" : "is" %>
+        <%= item.status.downcase %>
+        <%= item.status == "Interested" ? " in " : " to " %>
+      <% elsif item.class.name == "Gig" %>
+        <%= " added " %>
+      <% elsif item.class.name == "Link" %>
+        <%= " added a link to " %>
+      <% end %>
+      <%= link_to gig_path(item.class.name == "Gig" ? item.id : item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+        <%= item.class.name == "Gig" && item.summary.present? ? item.summary : item.gig.summary %>
+      <% end %>
+      <% if item.class.name == "Post" && item.text.present? %>
+        <p class="max-w-[70vw] truncate italic"><%= item.text %></p>
+      <% elsif item.class.name == "Link" %>
+        <p class="max-w-[70vw] truncate italic">
+          <%= render 'layouts/external_link', link: item.url, label: item.text.presence || item.url %>
+        </p>
+      <% end %>
     </div>
-    <span class="text-xs italic text-right"><%= format_time(item.created_at) %></span>
   </div>
 <% end %>
