@@ -9,13 +9,16 @@
 <div
   data-controller="tabs"
   data-tabs-active-class="bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50"
+  data-tabs-inactive-class="bg-slate-100 dark:bg-slate-800 text-gray-500"
   data-tabs-default-tab-value="interested"
 >
   <div class="flex gap-x-4">
-    <button id="interested" data-tabs-target="btn" data-action="click->tabs#select" class="px-4 mb-4 rounded bg-slate-100 dark:bg-slate-800 text-gray-500">
+    <button id="interested" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 mb-2 rounded">
+      <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
       Interested
     </button>
-    <button id="going" data-tabs-target="btn" data-action="click->tabs#select" class="px-4 mb-4 rounded bg-slate-100 dark:bg-slate-800 text-gray-500">
+    <button id="going" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 mb-2 rounded">
+  <%= heroicon "check-circle", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
       Going
     </button>
   </div>

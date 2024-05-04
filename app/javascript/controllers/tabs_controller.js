@@ -1,25 +1,33 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static classes = ["active"]
+  static classes = ["active", "inactive"]
   static targets = ["btn", "tab"]
   static values = { defaultTab: String }
 
   connect() {
-    this.tabTargets.map(x => x.hidden = true)
-    let selectedTab = this.tabTargets.find(element => element.id === this.defaultTabValue)
-    selectedTab.hidden = false
-    let selectedBtn = this.btnTargets.find(element => element.id === this.defaultTabValue)
-    selectedBtn.classList.add(...this.activeClasses)
+    this.tabTargets.map(x => {
+      x.hidden = x.id !== this.defaultTabValue
+    })
+    this.switchClasses(this.defaultTabValue)
+  }
+
+  switchClasses(id) {
+    this.btnTargets.map(x => {
+      if (x.id === id) {
+        x.classList.remove(...this.inactiveClasses)
+        x.classList.add(...this.activeClasses)
+      } else {
+        x.classList.remove(...this.activeClasses)
+        x.classList.add(...this.inactiveClasses)
+      }
+    })
   }
 
   select(event) {
-    let selectedTab = this.tabTargets.find(element => element.id === event.currentTarget.id)
-    if (selectedTab.hidden) {
-      this.tabTargets.map(x => x.hidden = true)
-      this.btnTargets.map(x => x.classList.remove(...this.activeClasses))
-      selectedTab.hidden = false
-      event.currentTarget.classList.add(...this.activeClasses)
-    }
+    this.tabTargets.map(x => {
+      x.hidden = x.id !== event.currentTarget.id
+    })
+    this.switchClasses(event.currentTarget.id)
   }
 }
