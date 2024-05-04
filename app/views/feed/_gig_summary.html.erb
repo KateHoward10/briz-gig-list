@@ -13,15 +13,12 @@
       <%= gig.summary %>
     <% end %>
     <% if link.present? %>
-      <%= response.present? ? ", and added a link" : ", with a link" %>
       <p class="max-w-[70vw] truncate italic">
         <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
       </p>
-    <% elsif post.present? %>
-      <%= response.present? ? ", and added a post" : ", with a post" %>
-      <% if post.text.present? %>
-        <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
-      <% end %>
+    <% end %>
+    <% if post.present? && post.text.present? %>
+      <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
     <% end %>
   </div>
 </div>

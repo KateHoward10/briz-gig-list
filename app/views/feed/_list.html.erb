@@ -9,7 +9,7 @@
               <%= render 'multi_gig', items: actions %>
             <% elsif actions.all? { |a| a.class.name == "Response" } %>
               <%= render 'multi_response', items: actions %>
-            <% elsif actions.select { |a| a.class.name == "Gig" }.count == 1 && actions.map { |a| a.class.name == "Gig" ? a.id : a.gig_id }.uniq.count == 1  %>
+            <% elsif (actions.select { |a| a.class.name == "Gig" }.count == 1) && actions.map { |a| a.class.name == "Gig" ? a.id : a.gig_id }.uniq.count == 1  %>
               <%= render 'gig_summary',
                 gig: actions.find { |a| a.class.name == "Gig" },
                 response: actions.find { |a| a.class.name == "Response" },
