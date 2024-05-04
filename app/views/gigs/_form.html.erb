@@ -31,8 +31,16 @@
   </div>
 
   <% unless @gig.id.present? %>
+    <%= form.fields_for :responses, @gig.responses.build do |response_form| %>
+      <div class="rounded bg-slate-100 dark:bg-slate-800 p-2 my-6 flex justify-between items-center" %>
+        <h3 class="font-semibold">Add your response (optional)</h3>
+        <%= response_form.hidden_field :user_id, value: current_user.id %>
+        <%= response_form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded dark:bg-slate-900" %>
+      </div>
+    <% end %>
+
     <%= form.fields_for :links, @gig.links.build do |link_form| %>
-      <div class="rounded border dark:border-gray-700 p-2 my-4" %>
+      <div class="rounded bg-slate-100 dark:bg-slate-800 p-2 my-6" %>
         <h3 class="font-semibold mb-2">Include a link (optional)</h3>
         <%= link_form.hidden_field :user_id, value: current_user.id %>
         <%= render 'links/form_fields', form: link_form %>
