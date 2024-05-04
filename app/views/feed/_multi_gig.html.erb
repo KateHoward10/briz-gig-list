@@ -1,11 +1,11 @@
 <div class="max-w-[80VW] flex mb-2">
   <%= image_tag items.first.user.image, class: "rounded-full h-5 w-5 mr-1" %>
   <div class="text-sm">
-    <%= items.first.user.id == current_user.id ? "You" : item.user.name %>
+    <%= items.first.user.id == current_user.id ? "You" : items.first.user.name %>
     <%= " added " %>
     <% items.each_with_index do |item, index| %>
       <% if items.length > 1 && index == items.length - 1 %>
-        <span class="mx-1">&</span>
+        <span>and</span>
       <% end %>
       <%= link_to gig_path(item.id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= item.summary %>

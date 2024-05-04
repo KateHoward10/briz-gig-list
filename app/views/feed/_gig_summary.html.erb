@@ -1,0 +1,27 @@
+<div class="max-w-[80VW] flex mb-2">
+  <%= image_tag gig.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+  <div class="text-sm">
+    <%= gig.user.id == current_user.id ? "You" : gig.user.name %>
+    <% if response.present? %>
+      <%= response.user.id == current_user.id ? "are" : "is" %>
+      <%= response.status.downcase %>
+      <%= response.status == "Interested" ? " in " : " to " %>
+    <% else %>
+      <%= " added " %>
+    <% end %>
+    <%= link_to gig_path(gig.id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+      <%= gig.summary %>
+    <% end %>
+    <% if link.present? %>
+      <%= response.present? ? ", and added a link" : ", with a link" %>
+      <p class="max-w-[70vw] truncate italic">
+        <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
+      </p>
+    <% elsif post.present? %>
+      <%= response.present? ? ", and added a post" : ", with a post" %>
+      <% if post.text.present? %>
+        <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>

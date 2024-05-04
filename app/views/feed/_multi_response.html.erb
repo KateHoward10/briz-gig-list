@@ -9,8 +9,10 @@
         <%= item.user.id == current_user.id ? "You" : item.user.name %>
         <%= item.user.id == current_user.id ? "are" : "is" %>
       <% end %>
-      <%= item.status.downcase %>
-      <%= item.status == "Interested" ? " in " : " to " %>
+      <% unless index > 0 && (items.all? { |i| i.status == "Going" } || items.all? { |i| i.status == "Interested" }) %>
+        <%= item.status.downcase %>
+        <%= item.status == "Interested" ? " in " : " to " %>
+      <% end %>
       <%= link_to gig_path(item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= item.gig.summary %>
       <% end %>
