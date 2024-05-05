@@ -12,13 +12,17 @@
     <%= link_to gig_path(gig.id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
       <%= gig.summary %>
     <% end %>
-    <% if link.present? %>
-      <p class="max-w-[70vw] truncate italic">
-        <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
-      </p>
+    <% if links.any? %>
+      <% links.each do |link| %>
+        <p class="max-w-[70vw] truncate italic">
+          <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
+        </p>
+      <% end %>
     <% end %>
-    <% if post.present? && post.text.present? %>
-      <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
+    <% if posts.any? %>
+      <% post.each do |post| %>
+        <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -13,8 +13,8 @@
               <%= render 'gig_summary',
                 gig: actions.find { |a| a.class.name == "Gig" },
                 response: actions.find { |a| a.class.name == "Response" },
-                link: actions.find { |a| a.class.name == "Link" },
-                post: actions.find { |a| a.class.name == "Post" }
+                links: actions.select { |a| a.class.name == "Link" },
+                posts: actions.select { |a| a.class.name == "Post" }
               %>
             <% else %>
               <% actions.each do |action| %>
