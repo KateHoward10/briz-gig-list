@@ -1,6 +1,6 @@
 <% if clashes.any? %>
   <h2 class="mt-6 text-red-800 dark:text-red-400 text-xs uppercase">Clashes</h2>
-  <ul class="mb-8 px-2 border border-red-200 dark:border-red-800 rounded">
+  <ul class="mb-8 px-2 bg-red-50 dark:bg-red-900 rounded">
     <% clashes.each do |clash| %>
       <li class="my-1">
         <%= link_to gig_path(clash.id), class: "text-sm hover:text-blue-700 dark:hover:text-blue-400" do %>
