@@ -7,7 +7,7 @@ class FeedController < ApplicationController
     @posts = Post.order(created_at: :desc).to_a
     @links = Link.order(created_at: :desc).to_a
     @actions = (@gigs + @responses + @posts + @links).sort! { |a, b| b.created_at <=> a.created_at }
-    @grouped_actions = @actions.group_by { |a| [a.created_at.to_datetime.strftime("%y%m%d %H:%M"), a.user_id] }.group_by { |(d, u), a| d.to_date }
+    @grouped_actions = @actions.group_by { |a| [a.created_at.to_datetime.strftime("%F %H:%M"), a.user_id] }.group_by { |(d, u), a| d.to_date }
     @actions_by_date = Kaminari.paginate_array(@grouped_actions, total_count: @grouped_actions.count).page(params[:page]).per(3)
   end
 end
