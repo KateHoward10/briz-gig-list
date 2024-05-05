@@ -20,7 +20,7 @@
       <% end %>
     <% end %>
     <% if posts.any? %>
-      <% post.each do |post| %>
+      <% posts.each do |post| %>
         <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
       <% end %>
     <% end %>
