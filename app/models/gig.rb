@@ -6,7 +6,7 @@ class Gig < ApplicationRecord
   has_many :reactions, through: :posts, dependent: :destroy
   accepts_nested_attributes_for :responses, reject_if: proc { |attributes| attributes["status"].blank? || attributes["status"] == "Not going" }
   accepts_nested_attributes_for :links, reject_if: proc { |attributes| attributes["url"].blank? }
-  accepts_nested_attributes_for :reactions
+  accepts_nested_attributes_for :reactions, reject_if: proc { |attributes| attributes["emoji"].blank? }
 
   validates :summary, :start_date, :location, presence: true
   validate :end_after_start

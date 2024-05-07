@@ -1,4 +1,4 @@
-<li class="mt-2 relative" data-controller="dropdown" data-action="mouseover->dropdown#openMenu mouseout->dropdown#closeMenu">
+<li class="mb-4 relative" data-controller="dropdown" data-action="mouseover->dropdown#openMenu mouseout->dropdown#closeMenu">
   <div class="flex flex-col <%= is_own ? 'items-end' : 'items-start' %>">
     <% if post.is_reply? %>
       <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
