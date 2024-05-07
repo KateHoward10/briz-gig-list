@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :gigs, except: :destroy do
     resources :links
     resources :posts
+    resources :reactions
   end
 
   resources :responses

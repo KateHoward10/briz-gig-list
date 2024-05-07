@@ -3,8 +3,10 @@ class Gig < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_many :links, dependent: :destroy
-  accepts_nested_attributes_for :links, reject_if: proc { |attributes| attributes["url"].blank? }
+  has_many :reactions, through: :posts, dependent: :destroy
   accepts_nested_attributes_for :responses, reject_if: proc { |attributes| attributes["status"].blank? || attributes["status"] == "Not going" }
+  accepts_nested_attributes_for :links, reject_if: proc { |attributes| attributes["url"].blank? }
+  accepts_nested_attributes_for :reactions
 
   validates :summary, :start_date, :location, presence: true
   validate :end_after_start

@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :gig
   belongs_to :user
   belongs_to :parent, class_name: "Post", foreign_key: "parent_id", optional: true
+  has_many :reactions, dependent: :destroy
 
   validates :text, presence: true
   validates :text, length: { maximum: 512 }

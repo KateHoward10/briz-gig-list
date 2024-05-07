@@ -12,9 +12,19 @@
       <p class="text-sm"><%= post.text %></p>
     </div>
     <p class="text-xs italic"><%= format_time(post.created_at) %></p>
+    <% if post.reactions.any? %>
+      <% post.reactions.each do |reaction| %>
+        <%= reaction.emoji %>
+      <% end %>
+    <% end %>
   </div>
 
   <div data-dropdown-target="menu" class="absolute top-0 <%= is_own ? 'right-0' : 'left-0' %> bg-slate-200 dark:bg-slate-800 px-2 m-1 rounded hidden">
     <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>
+    <%= form_with(model: [post.gig, post.reactions.build] , data: { controller: "emoji-picker", "emoji-picker-target": "form" }) do |form| %>
+      <%= form.hidden_field :post_id, value: post.id %>
+      <%= form.hidden_field :emoji, "data-emoji-picker-target": "input" %>
+      <%= button_tag "React", data: { action: "emoji-picker#toggle", "emoji-picker-target": "button" } %>
+    <% end %>
   </div>
 </li>
