@@ -1,0 +1,6 @@
+<% reactions.each do |reaction| %>
+  <p class="flex items-center text-xs gap-x-2 my-1">
+    <%= render 'layouts/user', user: reaction.user %>
+    <%= reaction.emoji %>
+  </p>
+<% end %>
