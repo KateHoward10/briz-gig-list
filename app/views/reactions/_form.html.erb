@@ -1,0 +1,5 @@
+<%= form_with(model: reaction, data: { controller: "emoji-picker", "emoji-picker-target": "form" }) do |form| %>
+  <%= form.hidden_field :post_id, value: post.id %>
+  <%= form.hidden_field :emoji, "data-emoji-picker-target": "input" %>
+  <%= button_tag reaction.id.present? ? reaction.emoji : "React", data: { action: "emoji-picker#toggle", "emoji-picker-target": "button" } %>
+<% end %>

@@ -19,12 +19,8 @@
     <% end %>
   </div>
 
-  <div data-dropdown-target="menu" class="absolute top-0 <%= is_own ? 'right-0' : 'left-0' %> bg-slate-200 dark:bg-slate-800 px-2 m-1 rounded hidden">
+  <div data-dropdown-target="menu" class="absolute top-0 <%= is_own ? 'right-0' : 'left-0' %> bg-slate-200 dark:bg-slate-800 flex flex-col gap-y-1 px-2 m-1 rounded hidden">
     <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>
-    <%= form_with(model: [post.gig, post.reactions.build] , data: { controller: "emoji-picker", "emoji-picker-target": "form" }) do |form| %>
-      <%= form.hidden_field :post_id, value: post.id %>
-      <%= form.hidden_field :emoji, "data-emoji-picker-target": "input" %>
-      <%= button_tag "React", data: { action: "emoji-picker#toggle", "emoji-picker-target": "button" } %>
-    <% end %>
+    <%= render 'reactions/form', reaction: post.reactions.find_by(user_id: current_user.id) || Reaction.new, post: post %>
   </div>
 </li>

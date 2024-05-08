@@ -7,11 +7,11 @@ Rails.application.routes.draw do
   resources :gigs, except: :destroy do
     resources :links
     resources :posts
-    resources :reactions
   end
 
   resources :responses
   resources :venues, only: [:index, :show]
+  resources :reactions
 
   get "calendar", to: "calendar#index"
   get "profile", to: "profile#index"
