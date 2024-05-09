@@ -1,9 +1,9 @@
-<li class="mb-4 flex items-start <%= is_own ? 'flex-row-reverse' : '' %>" data-controller="dropdown">
+<li class="mb-4 flex items-start <%= is_own ? 'flex-row-reverse' : '' %>" data-controller="dropdown" data-action="mouseover->dropdown#openMenu mouseout->dropdown#closeMenu">
   <div class="flex flex-col <%= is_own ? 'items-end' : 'items-start' %>">
     <% if post.is_reply? %>
       <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
     <% end %>
-    <div data-action="mouseover->dropdown#openMenu mouseout->dropdown#closeMenu">
+    <div>
       <div class="p-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> <%= is_own ? 'bg-blue-200 dark:bg-blue-700' : 'bg-gray-200 dark:bg-gray-700' %>">
         <% unless is_own %>
           <div class="text-xs flex items-center">
@@ -17,11 +17,14 @@
         <% if post.reactions.any? %>
           <div class="flex flex-col <%= is_own ? 'items-start' : 'items-end' %>">
             <div
-              class="rounded-full px-1 -mt-1 bg-slate-100 dark:bg-slate-800 cursor-pointer"
+              class="rounded-full flex items-center px-1 -mt-1 bg-slate-100 dark:bg-slate-800 cursor-pointer"
               data-action="click->reaction-list#toggleReactionList"
             >
               <% post.reactions.uniq.each do |reaction| %>
                 <%= reaction.emoji %>
+              <% end %>
+              <% if post.reactions.count > 1 %>
+                <span class="text-xs ml-1"><%= post.reactions.count %></span>
               <% end %>
             </div>
             <div
@@ -37,7 +40,7 @@
     </div>
   </div>
 
-  <div data-dropdown-target="menu" class="bg-slate-200 dark:bg-slate-800 flex flex-col gap-y-1 px-2 mx-1 rounded hidden">
+  <div data-dropdown-target="menu" class="bg-slate-200 dark:bg-slate-800 flex flex-col gap-y-1 text-sm px-2 py-1 mx-1 rounded hidden">
     <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>
     <%= render 'reactions/form', reaction: post.reactions.find_by(user_id: current_user.id) || Reaction.new, post: post %>
   </div>
