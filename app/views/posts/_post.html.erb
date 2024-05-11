@@ -7,48 +7,50 @@
     <% if post.is_reply? %>
       <%= render 'posts/parent', post: post.parent, is_own: post.parent.user_id == current_user.id %>
     <% end %>
-    <div
-      class="p-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> <%= is_own ? 'bg-blue-200 dark:bg-blue-700' : 'bg-gray-200 dark:bg-gray-700' %> relative"
-      data-action="mouseover->post#openMenu mouseout->post#closeMenu click->post#openMenu"
-    >
-      <% unless is_own %>
-        <div class="flex items-center text-xs">
-          <%= render 'layouts/user', user: post.user %>
-        </div>
-      <% end %>
-      <p class="text-sm"><%= post.text %></p>
+    <div>
+      <div
+        class="p-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> <%= is_own ? 'bg-blue-200 dark:bg-blue-700' : 'bg-gray-200 dark:bg-gray-700' %> relative"
+        data-action="mouseover->post#openMenu mouseout->post#closeMenu click->post#openMenu"
+      >
+        <% unless is_own %>
+          <div class="flex items-center text-xs">
+            <%= render 'layouts/user', user: post.user %>
+          </div>
+        <% end %>
+        <p class="text-sm"><%= post.text %></p>
 
-      <div data-post-target="menu" data-action="click:outside->post#closeMenu" class="absolute top-0 z-20 flex flex-col hidden px-2 py-1 m-1 text-sm rounded bg-slate-200 dark:bg-slate-800 gap-y-1">
-        <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>
-        <%= render 'reactions/form', reaction: post.reactions.find_by(user_id: current_user.id) || Reaction.new, post: post %>
+        <div data-post-target="menu" data-action="click:outside->post#closeMenu" class="absolute top-0 z-20 flex flex-col hidden px-2 py-1 m-1 text-sm rounded bg-slate-200 dark:bg-slate-800 gap-y-1">
+          <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>
+          <%= render 'reactions/form', reaction: post.reactions.find_by(user_id: current_user.id) || Reaction.new, post: post %>
+        </div>
       </div>
-    </div>
 
-    <div class="flex w-full justify-between gap-x-2 <%= is_own ? 'flex-row-reverse' : '' %>">
-      <span class="text-xs italic"><%= format_time(post.created_at) %></span>
-      <% if post.reactions.any? %>
-        <div class="flex flex-col <%= is_own ? 'items-start' : 'items-end' %>">
-          <div
-            class="z-10 flex items-center px-1 -mt-1 rounded-full cursor-pointer bg-slate-100 dark:bg-slate-800"
-            data-action="click->post#openReactionList"
-          >
-            <% post.reactions.uniq.each do |reaction| %>
-              <%= reaction.emoji %>
-            <% end %>
-            <% if post.reactions.count > 1 %>
-              <span class="ml-1 text-xs"><%= post.reactions.count %></span>
-            <% end %>
-          </div>
+      <div class="flex w-full justify-between gap-x-2 <%= is_own ? 'flex-row-reverse' : '' %>">
+        <span class="text-xs italic"><%= format_time(post.created_at) %></span>
+        <% if post.reactions.any? %>
+          <div class="flex flex-col <%= is_own ? 'items-start' : 'items-end' %>">
+            <div
+              class="z-10 flex items-center px-1 -mt-1 rounded-full cursor-pointer bg-slate-100 dark:bg-slate-800"
+              data-action="click->post#openReactionList"
+            >
+              <% post.reactions.uniq.each do |reaction| %>
+                <%= reaction.emoji %>
+              <% end %>
+              <% if post.reactions.count > 1 %>
+                <span class="ml-1 text-xs"><%= post.reactions.count %></span>
+              <% end %>
+            </div>
 
-          <div
-            data-post-target="reactionList"
-            class="flex flex-col hidden px-2 rounded bg-slate-200 dark:bg-slate-800 gap-y-1"
-            data-action="click:outside->post#closeReactionList"
-          >
-            <%= render 'reactions/list', reactions: post.reactions %>
+            <div
+              data-post-target="reactionList"
+              class="flex flex-col hidden px-2 rounded bg-slate-200 dark:bg-slate-800 gap-y-1"
+              data-action="click:outside->post#closeReactionList"
+            >
+              <%= render 'reactions/list', reactions: post.reactions %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </li>
