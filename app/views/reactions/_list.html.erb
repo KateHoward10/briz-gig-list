@@ -1,6 +1,6 @@
 <% reactions.each do |reaction| %>
-  <p class="flex items-center justify-between text-xs gap-x-4 my-1">
-    <%= render 'layouts/user', user: reaction.user %>
+  <p class="flex items-center justify-between my-1 gap-x-4">
+    <span class="text-xs"><%= render 'layouts/user', user: reaction.user %></span>
     <span class="flex gap-x-2">
       <%= reaction.emoji %>
       <% if reaction.user_id == current_user.id %>

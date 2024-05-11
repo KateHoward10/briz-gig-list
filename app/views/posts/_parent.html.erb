@@ -1,3 +1,3 @@
-<div class="py-1 px-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> bg-gray-300 dark:bg-gray-600 text-xs italic truncate max-w-full">
-  <span class="font-semibold mr-1"><%= is_own ? "You" : post.user.name %></span> — <%= post.text %>
+<div class="py-1 px-2 rounded <%= is_own ? 'rounded-br-none' : 'rounded-bl-none' %> bg-gray-300 dark:bg-gray-600 text-xs italic truncate max-w-[80vw]">
+  <span class="mr-1 font-semibold"><%= is_own ? "You" : post.user.name %></span> — <%= post.text %>
 </div>

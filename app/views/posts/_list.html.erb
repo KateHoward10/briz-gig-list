@@ -1,16 +1,14 @@
 <% if posts_by_date.any? %>
-  <div class="mt-6 max-h-[40vh] overflow-y-scroll flex flex-col-reverse border border-gray-300">
-    <div class="p-2">
-      <% posts_by_date.each do |date, posts| %>
-        <div class="mt-8">
-          <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
-        </div>
-        <ul>
-          <% posts.each do |post| %>
-            <%= render 'posts/post', post: post, is_own: post.user_id == current_user.id %>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
+  <div class="p-2 mt-6 border border-gray-300 dark:border-gray-600">
+    <% posts_by_date.each do |date, posts| %>
+      <div class="mt-8">
+        <%= render 'layouts/date_divider', title: format_date(Date.today) == format_date(date) ? "Today" : format_date(date) %>
+      </div>
+      <ul>
+        <% posts.each do |post| %>
+          <%= render 'posts/post', post: post, is_own: post.user_id == current_user.id %>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 <% end %>
