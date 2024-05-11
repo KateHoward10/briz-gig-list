@@ -1,11 +1,11 @@
 <% reactions.each do |reaction| %>
   <p class="flex items-center justify-between my-1 gap-x-4">
     <span class="text-xs"><%= render 'layouts/user', user: reaction.user %></span>
-    <span class="flex gap-x-2">
+    <span class="flex items-center gap-x-2">
       <%= reaction.emoji %>
       <% if reaction.user_id == current_user.id %>
         <%= link_to reaction_path(reaction), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this reaction?" }, class: "text-xs" do %>
-          <%= heroicon "trash", options: { class: "w-4 h-4" } %>
+          <%= heroicon "trash", options: { class: "w-5 h-5" } %>
         <% end %>
       <% end %>
     </span>

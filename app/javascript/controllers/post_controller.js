@@ -2,19 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 import { useClickOutside } from "stimulus-use"
 
 export default class extends Controller {
-  static targets = ["menuButton", "menu", "reactionList"]
+  static targets = ["menu", "reactionList"]
 
   connect() {
     useClickOutside(this, { element: this.menuTarget, eventPrefix: false })
     useClickOutside(this, { element: this.reactionListTarget, eventPrefix: false })
-  }
-
-  showMenuButton() {
-    this.menuButtonTarget.classList.remove("hidden")
-  }
-
-  hideMenuButton() {
-    this.menuButtonTarget.classList.add("hidden")
   }
 
   openMenu() {
