@@ -2,8 +2,8 @@
   model: gig,
   class: "text-sm",
   data: {
-    controller: "places link-form",
-    action: "google-maps-callback@window->places#initMap"
+    controller: "gig-form link-form",
+    action: "google-maps-callback@window->gig-form#initMap"
   }
 ) do |form| %>
   <%= render 'shared/error_messages', record: gig %>
@@ -16,18 +16,18 @@
   <fieldset class="flex justify-between mb-3">
     <div>
       <%= form.label :start_date, "Start*" %>
-      <%= form.date_field :start_date, required: true, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]" %>
+      <%= form.date_field :start_date, required: true, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-action": "change->gig-form#setEndDate" %>
     </div>
 
     <div>
       <%= form.label :end_date, "End (optional)" %>
-      <%= form.date_field :end_date, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]" %>
+      <%= form.date_field :end_date, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-gig-form-target": "endDate" %>
     </div>
   </fieldset>
 
   <div class="mb-3">
     <%= form.label :location, "Location*" %>
-    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-places-target": "field" %>
+    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-gig-form-target": "field" %>
   </div>
 
   <% unless @gig.id.present? %>
