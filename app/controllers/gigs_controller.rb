@@ -34,6 +34,10 @@ class GigsController < ApplicationController
 
   def new
     @gig = Gig.new()
+    if params[:start_date].present?
+      @gig.start_date = params[:start_date]
+      @gig.end_date = params[:start_date]
+    end
   end
 
   def create
