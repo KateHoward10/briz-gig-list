@@ -32,7 +32,7 @@
         <%= item.class.name == "Gig" && item.summary.present? ? item.summary : item.gig.summary %>
       <% end %>
       <% if item.class.name == "Post" && item.text.present? %>
-        <p class="max-w-[70vw] truncate italic"><%= item.text %></p>
+        <p class="max-w-[70vw] truncate italic"><%= sanitize item.text %></p>
       <% elsif item.class.name == "Link" %>
         <p class="max-w-[70vw] truncate italic">
           <%= render 'layouts/external_link', link: item.url, label: item.text.presence || item.url %>

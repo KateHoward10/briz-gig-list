@@ -21,7 +21,7 @@
     <% end %>
     <% if posts.any? %>
       <% posts.each do |post| %>
-        <p class="max-w-[70vw] truncate italic"><%= post.text %></p>
+        <p class="max-w-[70vw] truncate italic"><%= sanitize post.text %></p>
       <% end %>
     <% end %>
   </div>

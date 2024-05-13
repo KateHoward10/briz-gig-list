@@ -17,7 +17,7 @@
             <%= render 'layouts/user', user: post.user %>
           </div>
         <% end %>
-        <p class="text-sm"><%= post.text %></p>
+        <p class="text-sm"><%= sanitize post.text %></p>
 
         <div data-post-target="menu" data-action="click:outside->post#closeMenu" class="absolute top-0 z-20 flex flex-col hidden px-2 py-1 m-1 text-sm rounded bg-slate-200 dark:bg-slate-800 gap-y-1">
           <%= link_to "Reply", "?parent_id=#{post.id}#reply" %>

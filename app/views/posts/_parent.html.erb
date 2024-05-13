@@ -1,3 +1,3 @@
 <%= link_to "#post_#{post.id}", class: "py-1 px-2 rounded #{is_own ? 'rounded-br-none' : 'rounded-bl-none'} bg-gray-300 dark:bg-gray-600 text-xs italic truncate max-w-[80vw]" do %>
-  <span class="mr-1 font-semibold"><%= is_own ? "You" : post.user.name %></span> — <%= post.text %>
+  <span class="mr-1 font-semibold"><%= is_own ? "You" : post.user.name %></span> — <%= sanitize post.text %>
 <% end %>
