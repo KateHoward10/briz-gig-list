@@ -9,15 +9,15 @@
 <div
   data-controller="tabs"
   data-tabs-active-class="bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50"
-  data-tabs-inactive-class="bg-slate-100 dark:bg-slate-800 text-gray-500"
+  data-tabs-inactive-class="text-gray-500 bg-slate-100 dark:bg-slate-800"
   data-tabs-default-tab-value="interested"
 >
-  <div class="flex gap-x-4 mb-2">
-    <button id="interested" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 rounded">
+  <div class="flex mb-2 gap-x-4">
+    <button id="interested" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 rounded-t">
       <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
       Interested
     </button>
-    <button id="going" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 rounded">
+    <button id="going" data-tabs-target="btn" data-action="click->tabs#select" class="flex items-center px-3 py-1 rounded-t">
   <%= heroicon "check-circle", variant: :mini, options: { class: "w-4 h-4 mr-1" } %>
       Going
     </button>
@@ -30,8 +30,10 @@
           <%= render 'gig', gig: response.gig %>
         <% end %>
       </ul>
+      <%= paginate(@interested) %>
+    <% else %>
+      <p class="p-2 text-red-800 rounded dark:text-red-300 bg-slate-200 dark:bg-slate-700">No gigs found</p>
     <% end %>
-    <%= paginate(@interested) %>
   </div>
 
   <div data-tabs-target="tab" id="going">
@@ -41,7 +43,9 @@
           <%= render 'gig', gig: response.gig %>
         <% end %>
       </ul>
+      <%= paginate(@going) %>
+    <% else %>
+      <p class="p-2 text-red-800 rounded dark:text-red-300 bg-slate-200 dark:bg-slate-700">No gigs found</p>
     <% end %>
-    <%= paginate(@going) %>
   </div>
 </div>
