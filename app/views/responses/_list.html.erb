@@ -7,20 +7,20 @@
         <%= heroicon "star", variant: :mini, options: { class: "w-4 h-4 text-yellow-600" } %>
       <% end %>
     <% end %>
-    <div class="flex items-center flex-row-reverse">
+    <div class="flex flex-row-reverse items-center">
       <% responses.where.not(user_id: current_user.id).each_with_index do |response, index| %>
         <%= image_tag response.user.image, class: "rounded-full h-4 w-4#{index < responses.count - (inc_self ? 2 : 1) ? " -ml-1" : ""}" %>
       <% end %>
     </div>
-    <span class="text-xs ml-1">
+    <span class="ml-1 text-xs">
       <% if inc_self %>
         You
         <% if responses.count > 1 %>
           <%= " & #{responses.count - 1} other#{responses.count > 2 ? "s" : ""} " %>
-          <%= in_past && status == "going" ? "went" : status %>
+          <%= "#{in_past && status == "going" ? "were " : "" }#{status}" %>
         <% else %>
           <% if in_past %>
-            <%= status == "going" ? " went" : " were interested" %>
+            <%= " were #{status}" %>
           <% else %>
             <%= " are #{status}" %>
           <% end %> 
