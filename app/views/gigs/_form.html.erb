@@ -13,15 +13,15 @@
     <%= form.text_field :summary, required: true, class: "w-full p-1 dark:bg-slate-900" %>
   </div>
 
-  <fieldset class="flex justify-between mb-3">
-    <div>
+  <fieldset class="flex flex-wrap gap-2 mb-3 sm:justify-between">
+    <div class="flex flex-wrap items-center justify-between flex-1 gap-1 sm:flex-none">
       <%= form.label :start_date, "Start*" %>
-      <%= form.date_field :start_date, required: true, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-action": "change->gig-form#setEndDate" %>
+      <%= form.date_field :start_date, required: true, placeholder: "dd/mm/yyyy", class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-action": "change->gig-form#setEndDate" %>
     </div>
 
-    <div>
+    <div class="flex flex-wrap items-center justify-between flex-1 gap-1 sm:flex-none">
       <%= form.label :end_date, "End (optional)" %>
-      <%= form.date_field :end_date, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-gig-form-target": "endDate" %>
+      <%= form.date_field :end_date, placeholder: "dd/mm/yyyy", class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-gig-form-target": "endDate" %>
     </div>
   </fieldset>
 
