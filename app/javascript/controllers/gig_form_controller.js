@@ -15,6 +15,8 @@ export default class extends Controller {
   }
 
   setEndDate(e) {
-    this.endDateTarget.value = e.target.value
+    if (e.target.value > this.endDateTarget.value) {
+      this.endDateTarget.value = e.target.value
+    }
   }
 }
