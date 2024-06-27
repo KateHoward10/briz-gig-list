@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import mql from '@microlink/mql'
 
 export default class extends Controller {
-  static targets = ["url", "status", "text"]
+  static targets = ["url", "status", "text", "summary"]
 
   reset() {
     this.statusTarget.textContent = "";
@@ -19,7 +19,7 @@ export default class extends Controller {
     try {
       mql(this.urlTarget.value).then(({ status, data }) => {
         if (status == "success") {
-          this.setFormData(data?.title);
+          this.setFormData(data);
         }
       }).then(() => this.reset());
     } catch (error) {
@@ -27,7 +27,19 @@ export default class extends Controller {
     }
   }
 
-  setFormData(value) {
-    this.textTarget.value = value ? value : null;
+  setFormData({ publisher, title }) {
+    this.textTarget.value = publisher || null;
+    if (this.hasSummaryTarget && title) {
+      const separators = [" at ", " Tickets | ", " | ", " + "];
+      let titleParts = [];
+      separators.some((separator) => {
+        if (title.split(separator)[0] !== title) {
+          titleParts = title.split(separator);
+          return true;
+        }
+      })
+      const artist = titleParts[0];
+      if (artist) this.summaryTarget.value = artist;
+    }
   }
 }

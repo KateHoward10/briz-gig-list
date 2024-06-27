@@ -8,9 +8,19 @@
 ) do |form| %>
   <%= render 'shared/error_messages', record: gig %>
 
+  <% unless @gig.id.present? %>
+    <%= form.fields_for :links, @gig.links.build do |link_form| %>
+      <div class="p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
+        <h3 class="mb-2 font-semibold">Include a link (optional)</h3>
+        <%= link_form.hidden_field :user_id, value: current_user.id %>
+        <%= render 'links/form_fields', form: link_form %>
+      </div>
+    <% end %>
+  <% end %>
+
   <div class="mb-3">
     <%= form.label :summary, "Summary*" %>
-    <%= form.text_field :summary, required: true, class: "w-full p-1 dark:bg-slate-900" %>
+    <%= form.text_field :summary, "data-link-form-target": "summary", required: true, spellcheck: false, autocomplete: "off", class: "w-full p-1 dark:bg-slate-900" %>
   </div>
 
   <fieldset class="flex flex-wrap gap-2 mb-3 sm:justify-between">
@@ -27,7 +37,7 @@
 
   <div class="mb-3">
     <%= form.label :location, "Location*" %>
-    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-gig-form-target": "field" %>
+    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-gig-form-target": "field", "data-link-form-target": "location" %>
   </div>
 
   <% unless @gig.id.present? %>
@@ -36,14 +46,6 @@
         <h3 class="font-semibold">Add your response (optional)</h3>
         <%= response_form.hidden_field :user_id, value: current_user.id %>
         <%= response_form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded dark:bg-slate-900" %>
-      </div>
-    <% end %>
-
-    <%= form.fields_for :links, @gig.links.build do |link_form| %>
-      <div class="p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
-        <h3 class="mb-2 font-semibold">Include a link (optional)</h3>
-        <%= link_form.hidden_field :user_id, value: current_user.id %>
-        <%= render 'links/form_fields', form: link_form %>
       </div>
     <% end %>
   <% end %>
