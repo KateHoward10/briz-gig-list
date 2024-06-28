@@ -31,6 +31,10 @@ export default class extends Controller {
   reset() {
     this.statusTarget.textContent = "";
     this.textTarget.disabled = false;
+    if (this.hasSummaryTarget) this.summaryTarget.disabled = false;
+    if (this.hasStartDateTarget) this.startDateTarget.disabled = false;
+    if (this.hasEndDateTarget) this.endDateTarget.disabled = false;
+    if (this.hasLocationTarget) this.locationTarget.disabled = false;
   }
 
   async handleURL() {
@@ -40,10 +44,16 @@ export default class extends Controller {
     }
     this.statusTarget.textContent = "Checking URL...";
     this.textTarget.disabled = true;
+    if (this.hasSummaryTarget) this.summaryTarget.disabled = true;
+    if (this.hasStartDateTarget) this.startDateTarget.disabled = true;
+    if (this.hasEndDateTarget) this.endDateTarget.disabled = true;
+    if (this.hasLocationTarget) this.locationTarget.disabled = true;
     try {
       mql(this.urlTarget.value).then(({ status, data }) => {
         if (status == "success") {
           this.setFormData(data);
+        } else {
+          this.reset();
         }
       }).then(() => this.reset());
     } catch (error) {
@@ -77,6 +87,10 @@ export default class extends Controller {
         };
       }
     }
+    this.setDates(url)
+  }
+
+  setDates(url) {
     if (this.hasStartDateTarget && url) {
       let startDate;
       const urlParts = url.split("-");

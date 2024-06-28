@@ -30,7 +30,7 @@
       spellcheck: false,
       autocomplete: "off",
       "data-link-form-target": "summary",
-      class: "w-full p-1 dark:bg-slate-900"
+      class: "w-full p-1 dark:bg-slate-900 disabled:bg-gray-200 dark:disabled:bg-slate-700"
     %>
   </div>
 
@@ -42,7 +42,7 @@
         required: true,
         "data-action": "change->gig-form#setEndDate",
         "data-link-form-target": "startDate",
-        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]"
+        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark] disabled:bg-gray-200 dark:disabled:bg-slate-700"
       %>
     </div>
 
@@ -52,7 +52,7 @@
         value: gig.end_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.end_date,
         "data-gig-form-target": "endDate",
         "data-link-form-target": "endDate",
-        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]"
+        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark] disabled:bg-gray-200 dark:disabled:bg-slate-700"
       %>
     </div>
   </fieldset>
@@ -62,7 +62,7 @@
     <%= form.text_field :location,
       required: true,
       list: "venues",
-      class: "w-full p-1 dark:bg-slate-900",
+      class: "w-full p-1 dark:bg-slate-900 disabled:bg-gray-200 dark:disabled:bg-slate-700",
       "data-gig-form-target": "field",
       "data-link-form-target": "location"
     %>
