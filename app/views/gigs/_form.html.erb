@@ -56,9 +56,18 @@
     <%= form.label :location, "Location*" %>
     <%= form.text_field :location,
       required: true,
+      list: "venues",
       class: "w-full p-1 dark:bg-slate-900",
-      "data-gig-form-target": "field"
+      "data-gig-form-target": "field",
+      "data-link-form-target": "location"
     %>
+    <% if local_assigns[:venues] %>
+      <datalist id="venues">
+        <%= venues.each do |venue| %>
+          <option value="<%= venue %>"><%= venue %></option>
+        <% end %>
+      </datalist>
+    <% end %>
   </div>
 
   <% unless @gig.id.present? %>

@@ -34,6 +34,7 @@ class GigsController < ApplicationController
 
   def new
     @gig = Gig.new()
+    @venues = Gig.distinct.pluck(:location)
     if params[:start_date].present?
       @gig.start_date = params[:start_date]
       @gig.end_date = params[:start_date]
