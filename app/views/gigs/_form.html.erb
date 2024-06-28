@@ -62,7 +62,7 @@
       "data-link-form-target": "location"
     %>
     <% if local_assigns[:venues] %>
-      <datalist id="venues">
+      <datalist id="venues" data-link-form-target="venueList">
         <%= venues.each do |venue| %>
           <option value="<%= venue %>"><%= venue %></option>
         <% end %>

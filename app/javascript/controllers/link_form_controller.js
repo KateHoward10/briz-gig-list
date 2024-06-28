@@ -26,7 +26,7 @@ const months = {
 const currentYear = new Date().getFullYear();
 
 export default class extends Controller {
-  static targets = ["url", "status", "text", "summary", "startDate", "endDate"]
+  static targets = ["url", "status", "text", "summary", "startDate", "endDate", "location", "venueList"]
 
   reset() {
     this.statusTarget.textContent = "";
@@ -54,19 +54,28 @@ export default class extends Controller {
   setFormData({ publisher, title, url }) {
     this.textTarget.value = publisher || null;
     if (this.hasSummaryTarget && title) {
-      let artist;
+      let artist, location;
       separators.some((separator) => {
         const titleParts = title.split(separator);
         if (titleParts[0] !== title) {
           if (separator === " at " && titleParts.length > 2) {
             artist = `${titleParts[0]} at ${titleParts[1]}`;
+            location = titleParts[2];
           } else {
             artist = titleParts[0];
+            location = titleParts[1];
           }
           return true;
         }
       })
       if (artist) this.summaryTarget.value = artist;
+      if (location && this.hasLocationTarget && this.hasVenueListTarget) {
+        const venues = [...this.venueListTarget.children].map(venue => venue.value);
+        const existing = venues.find(venue => location.indexOf(venue.split(", ")[0]?.replace("The ", "")) > -1);
+        if (existing) {
+          this.locationTarget.value = existing;
+        };
+      }
     }
     if (this.hasStartDateTarget && url) {
       let startDate;
