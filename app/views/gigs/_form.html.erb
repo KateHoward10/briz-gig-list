@@ -20,24 +20,45 @@
 
   <div class="mb-3">
     <%= form.label :summary, "Summary*" %>
-    <%= form.text_field :summary, "data-link-form-target": "summary", required: true, spellcheck: false, autocomplete: "off", class: "w-full p-1 dark:bg-slate-900" %>
+    <%= form.text_field :summary,
+      required: true,
+      spellcheck: false,
+      autocomplete: "off",
+      "data-link-form-target": "summary",
+      class: "w-full p-1 dark:bg-slate-900"
+    %>
   </div>
 
   <fieldset class="flex flex-wrap justify-between gap-2 mb-3">
-    <div>
+    <div class="flex items-center justify-between flex-1 gap-x-6 sm:block sm:flex-none">
       <%= form.label :start_date, "Start*" %>
-      <%= form.date_field :start_date, value: gig.start_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.start_date, required: true, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-action": "change->gig-form#setEndDate" %>
+      <%= form.date_field :start_date,
+        value: gig.start_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.start_date,
+        required: true,
+        "data-action": "change->gig-form#setEndDate",
+        "data-link-form-target": "startDate",
+        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]"
+      %>
     </div>
 
-    <div>
+    <div class="flex items-center justify-between flex-1 gap-x-6 sm:block sm:flex-none">
       <%= form.label :end_date, "End (optional)" %>
-      <%= form.date_field :end_date, value: gig.end_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.end_date, class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]", "data-gig-form-target": "endDate" %>
+      <%= form.date_field :end_date,
+        value: gig.end_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.end_date,
+        "data-gig-form-target": "endDate",
+        "data-link-form-target": "endDate",
+        class: "p-1 dark:bg-slate-900 dark:[color-scheme:dark]"
+      %>
     </div>
   </fieldset>
 
   <div class="mb-3">
     <%= form.label :location, "Location*" %>
-    <%= form.text_field :location, required: true, class: "w-full p-1 dark:bg-slate-900", "data-gig-form-target": "field", "data-link-form-target": "location" %>
+    <%= form.text_field :location,
+      required: true,
+      class: "w-full p-1 dark:bg-slate-900",
+      "data-gig-form-target": "field"
+    %>
   </div>
 
   <% unless @gig.id.present? %>
