@@ -11,7 +11,12 @@
   <% unless @gig.id.present? %>
     <%= form.fields_for :links, @gig.links.build do |link_form| %>
       <div class="p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
-        <h3 class="mb-2 font-semibold">Include a link (optional)</h3>
+        <h3 class="flex items-start mb-2 font-semibold">
+          Include a link (optional)
+          <div title="Entering a valid URL will trigger an attempt to populate this form with relevant data from the webpage. Use with caution and please check any autofilled data, especially if linking to an event in a future year.">
+            <%= heroicon "information-circle", variant: "outline", options: { class: "w-4 h-4" } %>
+          </div>
+        </h3>
         <%= link_form.hidden_field :user_id, value: current_user.id %>
         <%= render 'links/form_fields', form: link_form %>
       </div>
@@ -29,9 +34,9 @@
     %>
   </div>
 
-  <fieldset class="flex flex-wrap justify-between gap-2 mb-3">
+  <fieldset class="flex flex-wrap justify-between mb-3 gap-y-2 gap-x-4">
     <div class="flex items-center justify-between flex-1 gap-x-6 sm:block sm:flex-none">
-      <%= form.label :start_date, "Start*" %>
+      <%= form.label :start_date, "Start date*" %>
       <%= form.date_field :start_date,
         value: gig.start_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.start_date,
         required: true,
@@ -42,7 +47,7 @@
     </div>
 
     <div class="flex items-center justify-between flex-1 gap-x-6 sm:block sm:flex-none">
-      <%= form.label :end_date, "End (optional)" %>
+      <%= form.label :end_date, "End date (optional)" %>
       <%= form.date_field :end_date,
         value: gig.end_date.nil? ? DateTime.now.strftime("%Y-%m-%d") : gig.end_date,
         "data-gig-form-target": "endDate",
