@@ -1,5 +1,5 @@
 <% if links.any? %>
-  <div class="flex flex-wrap justify-between items-center mt-4">
+  <div class="flex flex-wrap items-center justify-between mt-4">
     <h2 class="text-xs uppercase">More info:</h2>
     <%= link_to new_gig_link_path(@gig.id), class: "flex items-center text-sm font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
       <%= heroicon "plus", variant: :outline, options: { class: "w-4 h-4" } %>
@@ -9,8 +9,13 @@
   
   <ul>
     <% links.each do |link| %>
-      <li>
+      <li class="flex justify-between my-1">
         <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
+        <% if link.user_id == current_user.id %>
+          <%= link_to gig_link_path(@gig, link), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this link?" }, class: "text-xs" do %>
+            <%= heroicon "trash", options: { class: "w-4 h-4" } %>
+          <% end %>
+        <% end %>
       </li>
     <% end %>
   </ul>

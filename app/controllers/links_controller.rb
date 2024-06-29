@@ -16,6 +16,13 @@ class LinksController < ApplicationController
     end
   end
 
+  def destroy
+    @link = Link.find(params[:id])
+    if @link.destroy
+      redirect_to gig_path(@link.gig_id)
+    end
+  end
+
   private
     def set_gig
       @gig = Gig.find(params[:gig_id])
