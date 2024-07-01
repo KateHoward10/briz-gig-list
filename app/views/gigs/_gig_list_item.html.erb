@@ -1,4 +1,4 @@
-<div class="mb-4 flex">
+<div class="flex mb-5">
   <div class="flex items-center mr-2">
     <%= render 'gigs/date_box', date: gig.start_date, diff_months: gig.multimonth? %>
     <% if gig.end_date.present? && gig.end_date != gig.start_date %>
@@ -6,7 +6,7 @@
       <%= render 'gigs/date_box', date: gig.end_date, diff_months: gig.multimonth?  %>
     <% end %>
   </div>
-  <div class="sm:w-full sm:flex items-center justify-between">
+  <div class="items-center justify-between sm:w-full sm:flex">
     <div>
       <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
       <span class="hidden sm:flex">
@@ -19,7 +19,7 @@
     </div>
     <% unless local_assigns[:hide_venue] %>
       <%= link_to venue_path(gig.location) do %>
-        <span class="text-xs sm:text-sm flex items-center text-nowrap hover:text-blue-700 dark:hover:text-blue-400">
+        <span class="flex items-center text-xs sm:text-sm text-nowrap hover:text-blue-700 dark:hover:text-blue-400">
           <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
           <%= gig.location.split(", ")[0] %>
         </span>

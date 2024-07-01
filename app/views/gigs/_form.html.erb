@@ -11,10 +11,10 @@
   <% unless @gig.id.present? %>
     <%= form.fields_for :links, @gig.links.build do |link_form| %>
       <div class="p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
-        <details class="mb-2">
+        <details class="mb-2 list-style-none">
           <p class="text-xs">Entering a valid URL will trigger an attempt to populate this form with relevant data from the webpage.</p>
           <p class="text-xs">Use with caution and please check/edit any autofilled data, especially if linking to an event in a future year.</p>
-          <summary class="flex items-start font-semibold">
+          <summary class="flex items-start font-semibold before:content-none">
             Include a link (optional)
             <%= heroicon "information-circle", variant: "outline", options: { class: "w-4 h-4" } %>
           </summary>
