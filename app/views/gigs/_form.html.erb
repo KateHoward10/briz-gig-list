@@ -11,12 +11,14 @@
   <% unless @gig.id.present? %>
     <%= form.fields_for :links, @gig.links.build do |link_form| %>
       <div class="p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
-        <h3 class="flex items-start mb-2 font-semibold">
-          Include a link (optional)
-          <div title="Entering a valid URL will trigger an attempt to populate this form with relevant data from the webpage. Use with caution and please check any autofilled data, especially if linking to an event in a future year.">
+        <details class="mb-2">
+          <p class="text-xs">Entering a valid URL will trigger an attempt to populate this form with relevant data from the webpage.</p>
+          <p class="text-xs">Use with caution and please check/edit any autofilled data, especially if linking to an event in a future year.</p>
+          <summary class="flex items-start font-semibold">
+            Include a link (optional)
             <%= heroicon "information-circle", variant: "outline", options: { class: "w-4 h-4" } %>
-          </div>
-        </h3>
+          </summary>
+        </details>
         <%= link_form.hidden_field :user_id, value: current_user.id %>
         <%= render 'links/form_fields', form: link_form %>
       </div>
@@ -73,6 +75,16 @@
         <% end %>
       </datalist>
     <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_field :image, readonly: true, "data-link-form-target": "image", class: "hidden" %>
+    <div class="flex items-start justify-center hidden mx-auto my-2">
+      <img data-link-form-target="preview" class="w-full h-full sm:w-1/2 md:w-1/3"/>
+      <button type="button" title="Remove image" data-link-form-target="removeButton" data-action="click->link-form#removeImage">
+        <%= heroicon "trash", options: { class: "w-5 h-5" } %>
+      </button>
+    </div>
   </div>
 
   <% unless @gig.id.present? %>

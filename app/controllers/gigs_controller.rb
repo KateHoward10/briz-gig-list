@@ -74,6 +74,6 @@ class GigsController < ApplicationController
 
     def gig_params
       params[:gig][:end_date] = params[:gig][:start_date] if params[:gig][:end_date].blank?
-      params.require(:gig).permit(:summary, :start_date, :end_date, :location, links_attributes: [:url, :text, :user_id], responses_attributes: [:status, :user_id])
+      params.require(:gig).permit(:summary, :start_date, :end_date, :location, :image, links_attributes: [:url, :text, :user_id], responses_attributes: [:status, :user_id])
     end
 end

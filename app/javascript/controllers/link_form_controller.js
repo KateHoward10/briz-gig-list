@@ -26,7 +26,7 @@ const months = {
 const currentYear = new Date().getFullYear();
 
 export default class extends Controller {
-  static targets = ["url", "status", "text", "summary", "startDate", "endDate", "location", "venueList"]
+  static targets = ["url", "status", "text", "summary", "startDate", "endDate", "location", "venueList", "image", "preview", "removeButton"]
 
   reset() {
     this.statusTarget.textContent = "";
@@ -61,7 +61,7 @@ export default class extends Controller {
     }
   }
 
-  setFormData({ publisher, title, url }) {
+  setFormData({ publisher, title, url, image }) {
     this.textTarget.value = publisher || null;
     if (this.hasSummaryTarget && title) {
       let artist, location;
@@ -87,7 +87,8 @@ export default class extends Controller {
         };
       }
     }
-    this.setDates(url)
+    this.setDates(url);
+    if (image?.url) this.setImage(image.url);
   }
 
   setDates(url) {
@@ -111,6 +112,22 @@ export default class extends Controller {
         this.startDateTarget.value = startDate;
         if (this.hasEndDateTarget) this.endDateTarget.value = startDate;
       }
+    }
+  }
+
+  setImage(url) {
+    if (this.hasImageTarget && this.hasPreviewTarget && url) {
+      this.imageTarget.value = url;
+      this.previewTarget.src = url;
+      this.previewTarget.parentElement.classList.remove("hidden");
+    }
+  }
+
+  removeImage() {
+    if (this.hasImageTarget && this.hasPreviewTarget) {
+      this.imageTarget.value = null;
+      this.previewTarget.src = null;
+      this.previewTarget.parentElement.classList.add("hidden");
     }
   }
 }
