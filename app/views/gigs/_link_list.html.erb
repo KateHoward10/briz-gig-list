@@ -14,7 +14,7 @@
           <%= render 'layouts/external_link', link: link.url, label: link.text.presence || link.url %>
         </div>
         <% if link.user_id == current_user.id %>
-          <%= link_to gig_link_path(@gig, link), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this link?" }, class: "text-xs" do %>
+          <%= link_to gig_link_path(@gig, link), "aria-label": "Delete link", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this link?" }, class: "text-xs" do %>
             <%= heroicon "trash", options: { class: "w-4 h-4" } %>
           <% end %>
         <% end %>
