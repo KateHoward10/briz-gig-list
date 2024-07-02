@@ -9,7 +9,7 @@
     <% end %>
     <div class="flex flex-row-reverse items-center">
       <% responses.where.not(user_id: current_user.id).each_with_index do |response, index| %>
-        <%= image_tag response.user.image, class: "rounded-full h-4 w-4#{index < responses.count - (inc_self ? 2 : 1) ? " -ml-1" : ""}" %>
+        <%= image_tag response.user.image, alt: response.user.name, class: "rounded-full h-4 w-4#{index < responses.count - (inc_self ? 2 : 1) ? " -ml-1" : ""}" %>
       <% end %>
     </div>
     <span class="ml-1 text-xs">

@@ -1,5 +1,5 @@
 <div class="max-w-[80VW] flex mb-2">
-  <%= image_tag items.first.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+  <%= image_tag items.first.user.image, alt: "", class: "rounded-full h-5 w-5 mr-1" %>
   <div class="text-sm">
     <%= items.first.user.id == current_user.id ? "You" : items.first.user.name %>
     <%= " added " %>

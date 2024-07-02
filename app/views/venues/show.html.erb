@@ -2,11 +2,11 @@
 <% if @venue != "Various venues" %>
   <div class="flex flex-col items-center">
     <div class="flex flex-col items-end">
-      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@venue}&zoom=17&size=800x300&markers=color:red%7C#{@venue}&key=#{ENV["GOOGLE_MAPS_API_KEY"]}" %>
+      <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{@venue}&zoom=17&size=800x300&markers=color:red%7C#{@venue}&key=#{ENV["GOOGLE_MAPS_API_KEY"]}", alt: "" %>
       <%= render 'layouts/external_link', link: "http://maps.google.com/?q=#{@venue.split(" ").join("+")}", label: "View in Maps" %>
     </div>
   </div>
 <% end %>
 
-<h1 class="text-xl font-bold my-6">Gigs at <%= @venue %></h1>
+<h1 class="my-6 text-xl font-bold">Gigs at <%= @venue %></h1>
 <%= render 'gigs/gig_list', gigs_by_month: @gigs_by_month, hide_venue: true %>

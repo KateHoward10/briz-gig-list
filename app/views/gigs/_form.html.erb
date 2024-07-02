@@ -36,7 +36,7 @@
     %>
   </div>
 
-  <fieldset class="flex flex-wrap justify-between mb-3 gap-y-2 gap-x-4">
+  <fieldset class="flex flex-col justify-between mb-3 sm:flex-row gap-y-2 gap-x-4">
     <div class="flex items-center justify-between flex-1 gap-x-6 sm:block sm:flex-none">
       <%= form.label :start_date, "Start date*" %>
       <%= form.date_field :start_date,
@@ -80,7 +80,7 @@
   <div class="mb-3">
     <%= form.text_field :image, readonly: true, "data-link-form-target": "image", class: "hidden" %>
     <div class="flex items-start justify-center hidden mx-auto my-2">
-      <img data-link-form-target="preview" class="w-full h-full sm:w-1/2 md:w-1/3"/>
+      <img data-link-form-target="preview" alt="<%= @gig.summary %>" class="w-full h-full sm:w-1/2 md:w-1/3"/>
       <button type="button" title="Remove image" data-link-form-target="removeButton" data-action="click->link-form#removeImage">
         <%= heroicon "trash", options: { class: "w-5 h-5" } %>
       </button>
@@ -90,7 +90,7 @@
   <% unless @gig.id.present? %>
     <%= form.fields_for :responses, @gig.responses.build do |response_form| %>
       <div class="flex items-center justify-between p-2 my-6 rounded bg-slate-100 dark:bg-slate-800" %>
-        <h3 class="font-semibold">Add your response (optional)</h3>
+        <%= response_form.label :status, "Add your response (optional)", class: "font-semibold" %>
         <%= response_form.hidden_field :user_id, value: current_user.id %>
         <%= response_form.select :status, ["Not going", "Interested", "Going"], {}, class: "text-sm py-1 rounded dark:bg-slate-900" %>
       </div>
@@ -98,6 +98,6 @@
   <% end %>
 
   <div class="flex justify-end">
-    <%= form.submit "Save", class: "border border-2 dark:border-gray-700 cursor-pointer rounded text-base px-2 font-semibold hover:bg-gray-200 dark:hover:bg-gray-700" %>
+    <%= form.submit "Save", class: "border border-2 border-slate-700 dark:border-slate-300 cursor-pointer rounded text-base px-2 font-semibold hover:bg-gray-200 dark:hover:bg-gray-700" %>
   </div>
 <% end %>

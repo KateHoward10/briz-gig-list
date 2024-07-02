@@ -1,5 +1,5 @@
 <div class="max-w-[80VW] flex mb-2">
-  <%= image_tag gig.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+  <%= image_tag gig.user.image, alt: "", class: "rounded-full h-5 w-5 mr-1" %>
   <div class="text-sm">
     <%= gig.user.id == current_user.id ? "You" : gig.user.name %>
     <% if response.present? %>

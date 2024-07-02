@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>BrizGigList</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Information and discussion about gigs in Bristol">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -20,7 +21,7 @@
     <% if current_user.present? %>
       <%= render 'layouts/nav' %>
     <% end %>
-    <main class="mx-auto lg:mx-32 xl:max-w-screen-lg xl:mx-auto my-12 px-5">
+    <main class="px-5 mx-auto my-12 lg:mx-32 xl:max-w-screen-lg xl:mx-auto">
       <%= render 'shared/flash_messages' %>
       <%= yield %>
     </main>

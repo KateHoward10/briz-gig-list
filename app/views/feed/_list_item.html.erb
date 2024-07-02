@@ -1,6 +1,6 @@
 <% if item.class.name == "Gig" || item.gig.present? %>
   <div class="max-w-[80VW] flex mb-2">
-    <%= image_tag item.user.image, class: "rounded-full h-5 w-5 mr-1" %>
+    <%= image_tag item.user.image, alt: "", class: "rounded-full h-5 w-5 mr-1" %>
     <div class="text-sm">
       <%= item.user.id == current_user.id ? "You" : item.user.name %>
       <% if item.class.name == "Post" %>
