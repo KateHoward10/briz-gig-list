@@ -1,10 +1,25 @@
 <div class="mb-3">
   <%= form.label :url, "URL", class: "text-sm" %>
-  <%= form.text_field :url, "data-link-form-target": "url", "data-action": "input->link-form#handleURL", class: "w-full p-1 bg-slate-900" %>
-  <div data-link-form-target="status" class="text-sm font-semibold text-blue-600"></div>
+  <div class="flex items-center gap-x-2">
+    <%= form.text_field :url,
+      "data-link-form-target": "urlField",
+      "data-action": "input->link-form#activateFetchButton",
+      class: "w-full p-1 bg-slate-900"
+    %>
+    <button
+      type="button"
+      data-link-form-target="fetchButton"
+      data-action="click->link-form#fetchData"
+      disabled={true}
+      class="p-1 text-xs font-semibold text-blue-700 border border-2 rounded cursor-pointer dark:text-blue-400 disabled:text-gray-500 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700"
+    >
+      Fetch data
+    </button>
+  </div>
+  <div data-link-form-target="status" class="text-sm font-semibold text-blue-700 dark:text-blue-400"></div>
 </div>
 
 <div class="mb-3">
   <%= form.label :text, "Text", class: "text-sm" %>
-  <%= form.text_field :text, "data-link-form-target": "text", class: "w-full p-1 dark:bg-slate-900 disabled:bg-gray-200 dark:disabled:bg-slate-700" %>
+  <%= form.text_field :text, "data-link-form-target": "textField", class: "w-full p-1 dark:bg-slate-900 disabled:bg-gray-200 dark:disabled:bg-slate-700" %>
 </div>
