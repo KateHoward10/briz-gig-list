@@ -10,11 +10,11 @@
     <div>
       <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
       <span class="hidden sm:flex">
-        <%= render 'responses/list', responses: going, inc_self: going.where(user_id: current_user.id).present?, status: "going", in_past: gig.end_date < Date.today() %>
+        <%= render 'responses/list', responses: going, inc_self: going.where(user_id: current_user.id).present?, status: "going", in_past: gig.in_past? %>
           <% if going.any? && interested.any? %>
             <span class="mx-1">•</span>
           <% end %>
-        <%= render 'responses/list', responses: interested, inc_self: interested.where(user_id: current_user.id).present?, status: "interested", in_past: gig.end_date < Date.today() %>
+        <%= render 'responses/list', responses: interested, inc_self: interested.where(user_id: current_user.id).present?, status: "interested", in_past: gig.in_past? %>
       </span>
     </div>
     <% unless local_assigns[:hide_venue] %>

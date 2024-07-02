@@ -1,5 +1,5 @@
-<%= render 'shared/back_button' %>
+<%= render 'shared/back_button', label: @gig.summary, link: gig_path(@gig) %>
 
-<h1 class="text-xl font-bold mb-6">Edit <%= @gig.summary %></h1>
+<h1 class="mb-6 text-xl font-bold">Edit gig</h1>
 
 <%= render 'form', gig: @gig %>

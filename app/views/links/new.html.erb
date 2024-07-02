@@ -1,6 +1,6 @@
-<%= render 'shared/back_button' %>
+<%= render 'shared/back_button', label: @gig.summary, link: gig_path(@gig) %>
 
-<h1 class="text-xl font-bold mb-6">Add a link to <%= @gig.summary %></h1>
+<h1 class="mb-6 text-xl font-bold">Add a link</h1>
 
 <%= render 'shared/error_messages', record: @link %>
 

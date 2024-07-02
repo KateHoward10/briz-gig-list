@@ -1,4 +1,4 @@
-<%= render 'shared/back_button' %>
+<%= render 'shared/back_button', label: @gig.in_past? ? "Past gigs" : "Gigs", link: @gig.in_past? ? gigs_past_path : gigs_path %>
 
 <div class="gap-x-2 sm:flex">
   <% if @gig.image.present? %>
@@ -15,8 +15,8 @@
         <%= heroicon "map-pin", variant: :outline, options: { class: "w-5 h-5 mr-1 sm:mr-2" } %>
         <%= @gig.location %>
       <% end %>
-      <%= render 'responses/user_list', users: @going, status: "going", in_past: @gig.end_date < Date.today %>
-      <%= render 'responses/user_list', users: @interested, status: "interested", in_past: @gig.end_date < Date.today %>
+      <%= render 'responses/user_list', users: @going, status: "going", in_past: @gig.in_past? %>
+      <%= render 'responses/user_list', users: @interested, status: "interested", in_past: @gig.in_past? %>
     </div>
 
     <div class="flex flex-col items-end ml-auto">

@@ -18,4 +18,8 @@ class Gig < ApplicationRecord
   def multimonth?
     end_date.present? && end_date.strftime("%m%y") != start_date.strftime("%m%y")
   end
+
+  def in_past?
+    end_date.present? && end_date < Date.today()
+  end
 end
