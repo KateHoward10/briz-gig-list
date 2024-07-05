@@ -1,4 +1,4 @@
-<%= render 'shared/back_button', label: "Venues", link: venues_path %>
+<%= render 'shared/back_button', label: @back.present? ? "Back" : "Venues", link: @back || venues_path %>
 <% if @venue != "Various venues" %>
   <div class="flex flex-col items-center">
     <div class="flex flex-col items-end">
@@ -9,4 +9,4 @@
 <% end %>
 
 <h1 class="my-6 text-xl font-bold">Gigs at <%= @venue %></h1>
-<%= render 'gigs/gig_list', gigs_by_month: @gigs_by_month, hide_venue: true %>
+<%= render 'gigs/gig_list', gigs_by_month: @gigs_by_month, is_venue: true %>

@@ -8,7 +8,10 @@
   </div>
   <div class="items-center justify-between sm:w-full sm:flex">
     <div>
-      <%= link_to gig.summary, gig_path(gig.id), class: "font-semibold hover:text-blue-700 dark:hover:text-blue-400" %>
+      <%= link_to gig.summary,
+        gig_path(gig.id, back: local_assigns[:is_venue] ? venue_path(gig.location, back: request.path) : nil),
+        class: "font-semibold hover:text-blue-700 dark:hover:text-blue-400"
+      %>
       <span class="hidden sm:flex">
         <%= render 'responses/list', responses: going, inc_self: going.where(user_id: current_user.id).present?, status: "going", in_past: gig.in_past? %>
           <% if going.any? && interested.any? %>
@@ -17,7 +20,7 @@
         <%= render 'responses/list', responses: interested, inc_self: interested.where(user_id: current_user.id).present?, status: "interested", in_past: gig.in_past? %>
       </span>
     </div>
-    <% unless local_assigns[:hide_venue] %>
+    <% unless local_assigns[:is_venue] %>
       <%= link_to venue_path(gig.location.gsub(".", "")) do %>
         <span class="flex items-center text-xs sm:text-sm text-nowrap hover:text-blue-700 dark:hover:text-blue-400">
           <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>

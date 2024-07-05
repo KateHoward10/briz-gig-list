@@ -27,6 +27,8 @@ class GigsController < ApplicationController
     @going = @response.status == "Going" ? @going_list.unshift(current_user) : @going_list
     @interested = @response.status == "Interested" ? @interested_list.unshift(current_user) : @interested_list
 
+    @back = params[:back]
+
     @clashes = Gig.where.not(id: @gig.id)
                   .where("start_date <= ?", @gig.end_date)
                   .where("end_date >= ?", @gig.start_date)
@@ -35,6 +37,7 @@ class GigsController < ApplicationController
   def new
     @gig = Gig.new()
     @venues = Gig.distinct.pluck(:location)
+    @back = params[:back]
     if params[:start_date].present?
       @gig.start_date = params[:start_date]
       @gig.end_date = params[:start_date]

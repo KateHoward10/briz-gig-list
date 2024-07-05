@@ -7,7 +7,7 @@
       <% if items.length > 1 && index == items.length - 1 %>
         <span>and</span>
       <% end %>
-      <%= link_to gig_path(item.id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+      <%= link_to gig_path(item.id, back: root_path), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= item.summary %>
       <% end %>
       <% if index < items.length - 2 %>

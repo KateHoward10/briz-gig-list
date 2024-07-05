@@ -9,7 +9,7 @@
     <% else %>
       <%= " added " %>
     <% end %>
-    <%= link_to gig_path(gig.id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+    <%= link_to gig_path(gig.id, back: root_path), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
       <%= gig.summary %>
     <% end %>
     <% if links.any? %>

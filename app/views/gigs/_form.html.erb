@@ -20,7 +20,7 @@
           </summary>
         </details>
         <%= link_form.hidden_field :user_id, value: current_user.id %>
-        <%= render 'links/form_fields', form: link_form %>
+        <%= render 'links/form_fields', form: link_form, link: @link %>
       </div>
     <% end %>
   <% end %>

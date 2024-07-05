@@ -28,7 +28,8 @@
       <% elsif item.class.name == "Reaction" %>
         <%= " reacted #{item.emoji} to a post in " %>
       <% end %>
-      <%= link_to gig_path(item.class.name == "Gig" ? item.id : item.class.name == "Reaction" ? item.post.gig_id : item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+      <%= link_to gig_path(item.class.name == "Gig" ? item.id : item.class.name == "Reaction" ? item.post.gig_id : item.gig_id, back: root_path),
+        class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= item.class.name == "Gig" && item.summary.present? ? item.summary : item.gig.summary %>
       <% end %>
       <% if item.class.name == "Post" && item.text.present? %>

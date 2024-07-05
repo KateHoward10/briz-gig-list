@@ -13,7 +13,7 @@
         <%= item.status.downcase %>
         <%= item.status == "Interested" ? " in " : " to " %>
       <% end %>
-      <%= link_to gig_path(item.gig_id), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
+      <%= link_to gig_path(item.gig_id, back: root_path), class: "font-semibold text-blue-700 dark:text-blue-400 hover:underline" do %>
         <%= item.gig.summary %>
       <% end %>
       <% if index < items.length - 2 %>
