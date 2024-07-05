@@ -18,7 +18,7 @@
       </span>
     </div>
     <% unless local_assigns[:hide_venue] %>
-      <%= link_to venue_path(gig.location) do %>
+      <%= link_to venue_path(gig.location.gsub(".", "")) do %>
         <span class="flex items-center text-xs sm:text-sm text-nowrap hover:text-blue-700 dark:hover:text-blue-400">
           <%= heroicon "map-pin", variant: :outline, options: { class: "w-4 h-4" } %>
           <%= gig.location.split(", ")[0] %>
