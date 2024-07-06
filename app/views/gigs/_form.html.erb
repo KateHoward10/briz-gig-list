@@ -77,15 +77,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
-    <%= form.text_field :image, readonly: true, "data-link-form-target": "image", class: "hidden" %>
-    <div class="flex items-start justify-center hidden mx-auto my-2">
-      <img data-link-form-target="preview" alt="<%= @gig.summary %>" class="w-full h-full sm:w-1/2 md:w-1/3"/>
-      <button type="button" title="Remove image" data-link-form-target="removeButton" data-action="click->link-form#removeImage">
-        <%= heroicon "trash", options: { class: "w-5 h-5" } %>
-      </button>
-    </div>
-  </div>
+  <%= render 'image_fields', form: form, gig: gig %>
 
   <% unless @gig.id.present? %>
     <%= form.fields_for :responses, @gig.responses.build do |response_form| %>

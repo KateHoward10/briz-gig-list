@@ -58,8 +58,8 @@ export default class extends Controller {
     }
   }
 
-  setFormData({ publisher, title, url, image }) {
-    this.textFieldTarget.value = publisher || null;
+  setFormData({ publisher, author, title, url, image }) {
+    this.textFieldTarget.value = publisher || author;
     if (this.hasSummaryTarget && title) {
       let artist, location;
       separators.some((separator) => {
@@ -116,7 +116,7 @@ export default class extends Controller {
     if (this.hasImageTarget && this.hasPreviewTarget && url) {
       this.imageTarget.value = url;
       this.previewTarget.src = url;
-      this.previewTarget.parentElement.classList.remove("hidden");
+      this.previewTarget.parentElement.parentElement.classList.remove("hidden");
     }
   }
 
@@ -124,7 +124,8 @@ export default class extends Controller {
     if (this.hasImageTarget && this.hasPreviewTarget) {
       this.imageTarget.value = null;
       this.previewTarget.src = null;
-      this.previewTarget.parentElement.classList.add("hidden");
+      this.activateFetchButton();
+      this.previewTarget.parentElement.parentElement.classList.add("hidden");
     }
   }
 }
