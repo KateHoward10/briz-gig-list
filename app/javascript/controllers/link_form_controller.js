@@ -18,7 +18,6 @@ export default class extends Controller {
   ]
 
   reset() {
-    this.textFieldTarget.value = "";
     this.statusTarget.textContent = "";
     this.fetchButtonTarget.textContent = "Fetch data";
     this.fetchButtonTarget.disabled = true;
@@ -54,6 +53,7 @@ export default class extends Controller {
         }
       }).then(() => this.reset());
     } catch (error) {
+      this.textFieldTarget.value = "";
       this.reset();
     }
   }
