@@ -9,6 +9,7 @@ class Gig < ApplicationRecord
   accepts_nested_attributes_for :reactions, reject_if: proc { |attributes| attributes["emoji"].blank? }
 
   validates :summary, :start_date, :location, presence: true
+  validates :summary, uniqueness: true
   validate :end_after_start
 
   def end_after_start

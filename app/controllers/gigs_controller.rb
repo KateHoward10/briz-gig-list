@@ -1,6 +1,6 @@
 class GigsController < ApplicationController
   before_action :authenticate
-  before_action :set_gig, only: [:show, :edit, :update]
+  before_action :set_gig, only: [:show, :edit, :update, :destroy]
   
   def index
     @gigs = Gig.where("end_date >= ?", Date.today).order(:start_date)
@@ -67,6 +67,12 @@ class GigsController < ApplicationController
       redirect_to gig_path(@gig.id)
     else
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @gig.destroy
+      redirect_to gigs_path
     end
   end
 
