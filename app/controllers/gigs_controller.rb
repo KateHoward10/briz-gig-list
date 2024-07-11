@@ -71,6 +71,10 @@ class GigsController < ApplicationController
   end
 
   def destroy
+    if current_user.id != @gig.user_id
+      redirect_to gigs_path
+      flash[:alert] = "You are not authorised to delete this gig"
+    end
     if @gig.destroy
       redirect_to gigs_path
     end
